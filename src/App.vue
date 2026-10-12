@@ -41,9 +41,9 @@ const audiences = [
   },
   {
     title: 'Merchants',
-    copy: 'Manage storefronts, accept orders, prepare packages, support bargaining, and keep payouts understandable.',
+    copy: 'Manage storefronts, accept orders, prepare packages, support bargaining, and see payouts after percentage-based commission.',
     stat: '15%',
-    label: 'default commission',
+    label: 'default commission rate',
   },
   {
     title: 'Riders',
