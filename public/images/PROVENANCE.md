@@ -83,3 +83,37 @@ Edit target: the supplied realistic SEQUO scooter rider image. Keep the premium 
 Final street-correction prompt:
 
 Correct ONLY the street perspective in this edited image. Preserve the rider, helmet, beige clothing, charcoal scooter, cream SEQUO-branded rear package, exact readable package branding, and small SEQUO 'Commerce partenaire' plaque beside the shop. The current street STILL recedes into the upper right while the scooter crosses that perspective. Replace that layout entirely with a true side-on street composition: camera is positioned ACROSS THE ROAD from the shop, looking straight at the shop facade and rider in side profile. The shop facade extends left-to-right across the whole background. A continuous curb behind the scooter runs HORIZONTALLY from the LEFT edge to the RIGHT edge of the image, parallel to the line joining the two scooter wheel axles. A white dashed road centerline in the foreground also runs horizontally LEFT to RIGHT, parallel to both scooter wheels. The scooter faces RIGHT, clearly travelling ALONG the lane from LEFT to RIGHT. There must be NO road disappearing into the upper-right background, NO diagonal intersection, NO crossing road, NO turn. Use an ordinary warm cream Lome neighborhood shopfront and neighboring buildings across the full width behind the rider, green awning and subtle tropical plants. Make the alignment unmistakable. Maintain photorealistic lighting, credible geometry, landscape 3:2 composition, and keep the rider and complete scooter large and fully in frame. No additional text beyond the preserved SEQUO packaging and existing small partner plaque.
+
+
+## Matching shop partner plaques — 2026-11-09
+
+The owner requested the rider scene’s small SEQUO Commerce partenaire plaque on the home and merchant shop images. The built-in image_gen tool edited each original separately, using the approved rider street image as plaque reference. All three selected outputs were visually inspected: one cream plaque with green identity and Commerce partenaire text is mounted on an existing shop wall. People, activities and composition remain consistent. The shops are fictional; plaques do not establish actual partner endorsements. Existing localized AI labels and fictional-scene captions remain. The home image is also reused on About.
+
+The active filenames below replace their earlier unsuffixed versions; original PNGs remain in the generated-images archive. WebP processing is proportional resize only, quality 88/method 6, without additional semantic edits.
+
+### commerce-local-partner.webp
+
+- Original: `exec-a2299016-5332-456f-854e-c5e7f3fad169.png`.
+- SHA-256: `86ce98b5c8777d670714730ae7d0d3a29cd2f1be149573c6bb6d952de4e4dbed`.
+
+Prompt:
+
+Precise image edit. Image 1 is the EDIT TARGET (commerce-local); image 2 is a REFERENCE ONLY for the small SEQUO partner plaque on the shop wall. Add exactly one matching small cream physical plaque to a believable shop wall or fixed counter face in image 1, visible but discreet. Plaque carries the same green folded-S parcel symbol, exact uppercase SEQUO wordmark, and small exact French words 'Commerce partenaire' underneath, matching the reference plaque's typography, restrained proportions, green print, cream material and corner fixings. Use a clear existing wall/counter area, without obscuring any person, hands or central product. Match perspective, natural shadows and original lighting so it is mounted physically, not an overlay. Preserve EVERYTHING ELSE in image 1: people, faces, clothing, hands, gestures, products, phone or parcel, furniture, plants, original composition, aspect ratio, framing, photographic style and colors. Do not add a scooter, rider, delivery bag or other elements from reference image 2. Do not add extra logos or text elsewhere. This is still a fictional AI-generated illustrative shop scene with its disclosure handled by surrounding website HTML.
+
+### merchant-catalogue-partner.webp
+
+- Original: `exec-b8baaaf8-9a57-42ea-b65c-ed95f2badaed.png`.
+- SHA-256: `e88756284d190ceeecc50dbb874e7760ef2b6c2cc032901e9cdf36b7d6e6ae86`.
+
+Prompt:
+
+Precise image edit. Image 1 is the EDIT TARGET (merchant-catalogue); image 2 is a REFERENCE ONLY for the small SEQUO partner plaque on the shop wall. Add exactly one matching small cream physical plaque to a believable shop wall or fixed counter face in image 1, visible but discreet. Plaque carries the same green folded-S parcel symbol, exact uppercase SEQUO wordmark, and small exact French words 'Commerce partenaire' underneath, matching the reference plaque's typography, restrained proportions, green print, cream material and corner fixings. Use a clear existing wall/counter area, without obscuring any person, hands or central product. Match perspective, natural shadows and original lighting so it is mounted physically, not an overlay. Preserve EVERYTHING ELSE in image 1: people, faces, clothing, hands, gestures, products, phone or parcel, furniture, plants, original composition, aspect ratio, framing, photographic style and colors. Do not add a scooter, rider, delivery bag or other elements from reference image 2. Do not add extra logos or text elsewhere. This is still a fictional AI-generated illustrative shop scene with its disclosure handled by surrounding website HTML.
+
+### merchant-preparation-partner.webp
+
+- Original: `exec-b26677e7-8b70-4f11-9659-68ed1b9ba47d.png`.
+- SHA-256: `2bd9fff39e80a206a57541e59bcafa7f32f86b5a64b54d7553f1c930df9eb047`.
+
+Prompt:
+
+Precise image edit. Image 1 is the EDIT TARGET (merchant-preparation); image 2 is a REFERENCE ONLY for the small SEQUO partner plaque on the shop wall. Add exactly one matching small cream physical plaque to a believable shop wall or fixed counter face in image 1, visible but discreet. Plaque carries the same green folded-S parcel symbol, exact uppercase SEQUO wordmark, and small exact French words 'Commerce partenaire' underneath, matching the reference plaque's typography, restrained proportions, green print, cream material and corner fixings. Use a clear existing wall/counter area, without obscuring any person, hands or central product. Match perspective, natural shadows and original lighting so it is mounted physically, not an overlay. Preserve EVERYTHING ELSE in image 1: people, faces, clothing, hands, gestures, products, phone or parcel, furniture, plants, original composition, aspect ratio, framing, photographic style and colors. Do not add a scooter, rider, delivery bag or other elements from reference image 2. Do not add extra logos or text elsewhere. This is still a fictional AI-generated illustrative shop scene with its disclosure handled by surrounding website HTML.

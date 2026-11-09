@@ -22,7 +22,7 @@ for (const locale of locales) {
     <meta property="og:title" content="${escape(meta.title)}" />
     <meta property="og:description" content="${escape(meta.description)}" />
     <meta property="og:url" content="${origin}${route}" />
-    <meta property="og:image" content="${origin}/images/commerce-local.webp" />
+    <meta property="og:image" content="${origin}/images/commerce-local-partner.webp" />
     <meta property="og:image:alt" content="${locale === 'fr' ? 'Illustration du commerce local avec SEQUO' : 'Illustration of local commerce with SEQUO'}" />`
     const html = template.replace('<html lang="fr">', `<html lang="${locale}">`).replace('<!--page-head-->', head).replace('<!--app-html-->', await render(route))
     if (html.includes('<!--app-html-->') || !html.includes('<h1')) throw new Error('Missing rendered page: ' + route)
