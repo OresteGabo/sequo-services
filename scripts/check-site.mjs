@@ -55,7 +55,7 @@ try {
       assert(html.includes('merchant-catalogue.webp') && html.includes('merchant-preparation.webp'), 'Missing merchant illustrations')
       assert(html.includes('merchant-checklist') && html.includes('merchant-questions'), 'Missing merchant guidance')
     }
-    if (route === paths.fr.riders || route === paths.en.riders) assert(html.includes('rider-scooter.webp') && html.includes('rider-journey'), 'Missing rider photo or preserved animated route')
+    if (route === paths.fr.riders || route === paths.en.riders) assert(html.includes('rider-scooter-street.webp') && html.includes('rider-journey'), 'Missing rider photo or preserved animated route')
     assert(!html.includes('<!--app-html-->'), route)
     assert(!html.includes('Illustrations de présentation') && !html.includes('Le commerce local, mieux connecté'), route)
     assert(html.includes('sequo-favicon.svg?v=box-20261109') && !html.includes('vue.svg'), route)
