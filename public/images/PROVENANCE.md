@@ -23,6 +23,8 @@ The generated PNG is 1122×1402 pixels. The website derivative is a proportional
 - WebP SHA256: `32c44dc183abeb4b0eaa226f31d21d9d574b8382b1be826fbb9e7aa07db39042`.
 - Original PNG SHA256: `c3987a331bff7d87a412b94839d31dc71db32a04b62eb262494a948d5a345110`.
 
-## Existing brand assets
+## Current brand assets
 
-`sequo-logo.png` and `sequo-icon.png` are copies of the existing SEQUO app brand assets (`Sequo/shared/src/commonMain/composeResources/files/brand/logos/sequo-primary-light.png` and `sequo-icon-green.png`). No third-party logo, provider logo, testimonial, partner identity or test screenshot was added. No claim about legal ownership or transfer of rights is inferred from these source files.
+The current folded-S parcel identity is served from `public/brand/`, generated
+from `sequo-api/docs/branding/platform-assets/`. The old logo PNG copies have
+been removed. Provider logos and the commerce hero image are unchanged.

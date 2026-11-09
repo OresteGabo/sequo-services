@@ -149,7 +149,7 @@ const faqs = [
       aria-label="SEQUO — accueil"
       @click="menuOpen = false"
     >
-      <img src="/images/sequo-logo.png" alt="SEQUO" width="145" height="52" />
+      <img src="/brand/sequo-logo-light.svg" alt="SEQUO" width="145" height="52" />
     </a>
     <button
       ref="menuToggle"
@@ -291,7 +291,7 @@ const faqs = [
             </div>
             <div class="phone-brand">
               <img
-                src="/images/sequo-logo.png"
+                src="/brand/sequo-logo-light.svg"
                 alt="SEQUO"
                 width="100"
                 height="36"
@@ -632,7 +632,7 @@ const faqs = [
   <footer class="site-footer wrap">
     <div class="footer-main">
       <a class="brand" href="#accueil" aria-label="SEQUO — retour à l’accueil"
-        ><img src="/images/sequo-logo.png" alt="SEQUO" width="145" height="52"
+        ><img src="/brand/sequo-logo-light.svg" alt="SEQUO" width="145" height="52"
       /></a>
       <p>Le commerce local.<br />Les liens en plus.</p>
       <nav aria-label="Liens de bas de page">
