@@ -29,7 +29,7 @@ type Product = {
 type Copy = {
   nav: Record<Page, string>; partners: string; menu: string; close: string; skip: string; mainNav: string; footerNav: string
   language: string; localeName: string; otherLanguage: string; homeLabel: string
-  home: { title: string; emphasis: string; lead: string; action: string; secondary: string; imageAlt: string; imageCaption: string; handoff: string; handoffSmall: string; strip: string; stripStrong: string; appTitle: string; appEmphasis: string; appText: string; appAction: string; rolesTitle: string; rolesEmphasis: string; rolesText: string; howTitle: string; steps: { title: string; text: string }[] }
+  home: { customerNav: string; browse: string; riderTitle: string; riderText: string; riderAction: string; contactTitle: string; contactEmphasis: string; contactText: string; contactAction: string; title: string; emphasis: string; lead: string; action: string; secondary: string; imageAlt: string; imageCaption: string; handoff: string; handoffSmall: string; strip: string; stripStrong: string; appTitle: string; appEmphasis: string; appText: string; appAction: string; rolesTitle: string; rolesEmphasis: string; rolesText: string; howTitle: string; steps: { title: string; text: string }[] }
   products: Record<ProductPage, Product>
   common: { discover: string; how: string; inside: string; enlarge: string; closeImage: string; nextScreen: string; previousScreen: string; appScreens: string; frenchScreen: string; viewHelp: string; explore: string; contactTitle: string; contactEmphasis: string; contactText: string; contactAction: string; footerLine: string; footerSub: string; top: string; screenshotAlt: string; related: string }
   about: { title: string; emphasis: string; lead: string; storyTitle: string; story: string[]; values: Feature[]; placeTitle: string; placeText: string; rolesTitle: string }
@@ -44,12 +44,15 @@ export const copy: Record<Locale, Copy> = {
     partners: 'Nos partenaires', menu: 'Menu', close: 'Fermer', skip: 'Aller au contenu', mainNav: 'Navigation principale', footerNav: 'Explorer SEQUO',
     language: 'Langue du site', localeName: 'Français', otherLanguage: 'English', homeLabel: 'SEQUO — accueil',
     home: {
+      customerNav: 'Votre parcours client', browse: 'Explorer l’application',
+      riderTitle: 'Envie de livrer avec SEQUO ?', riderText: 'Faites connaissance avec l’équipe et découvrez les missions, les conditions et les possibilités de partenariat dans votre zone.', riderAction: 'Découvrir le partenariat livreur',
+      contactTitle: 'Une question', contactEmphasis: 'avant votre premier achat ?', contactText: 'Accès à l’application, commerces et zones disponibles : l’équipe vous aide à préparer vos premiers pas.', contactAction: 'Parler à l’équipe',
       title: 'Tout près.', emphasis: 'Tout simplement.',
       lead: 'Vos commerçants. Vos achats. Votre livraison. SEQUO rapproche tout ce qui compte au quotidien.',
-      action: 'Découvrir l’application', secondary: 'Rejoindre SEQUO',
+      action: 'Découvrir l’application', secondary: 'Une question ?',
       imageAlt: 'Illustration d’une commerçante remettant un colis à un livreur devant une boutique de quartier.',
       imageCaption: 'Une vision du quotidien avec SEQUO · Illustration', handoff: 'Du commerce à votre porte.', handoffSmall: 'Un lien à chaque étape.',
-      strip: 'Un même lien.', stripStrong: 'Quatre façons d’avancer.',
+      strip: 'Vos achats,', stripStrong: 'du choix à la réception.',
       appTitle: 'Votre quotidien,', appEmphasis: 'en quelques gestes.',
       appText: 'Découvrez les produits, préparez votre panier et retrouvez les étapes de votre commande. Une application pour garder vos achats à portée de main.',
       appAction: 'Voir comment ça fonctionne', rolesTitle: 'Chacun son métier.', rolesEmphasis: 'Un parcours commun.',
@@ -181,7 +184,10 @@ export const copy: Record<Locale, Copy> = {
     partners: 'Our partners', menu: 'Menu', close: 'Close', skip: 'Skip to content', mainNav: 'Main navigation', footerNav: 'Explore SEQUO',
     language: 'Website language', localeName: 'English', otherLanguage: 'Français', homeLabel: 'SEQUO — home',
     home: {
-      title: 'Close to you.', emphasis: 'Simply connected.', lead: 'Your shops. Your purchases. Your delivery. SEQUO brings everyday shopping closer together.', action: 'Discover the app', secondary: 'Join SEQUO', imageAlt: 'Illustration of a shopkeeper handing a parcel to a rider outside a neighbourhood shop.', imageCaption: 'An everyday vision with SEQUO · Illustration', handoff: 'From the shop to your door.', handoffSmall: 'Connected at every step.', strip: 'One shared connection.', stripStrong: 'Four ways forward.', appTitle: 'Your everyday shopping,', appEmphasis: 'a few taps away.', appText: 'Explore products, prepare your basket and find the latest steps of your order. Keep your purchases within reach, in one app.', appAction: 'See how it works', rolesTitle: 'Different roles.', rolesEmphasis: 'One shared journey.', rolesText: 'Tools for the people who shop, prepare, carry and hand over parcels.', howTitle: 'From your choice to your door.',
+      customerNav: 'Your shopping journey', browse: 'Explore the app',
+      riderTitle: 'Interested in delivering with SEQUO?', riderText: 'Meet the team and learn about missions, requirements and partnership opportunities in your area.', riderAction: 'Explore the rider partnership',
+      contactTitle: 'A question', contactEmphasis: 'before your first purchase?', contactText: 'App access, available shops and service areas: the team can help you take your first steps.', contactAction: 'Talk to the team',
+      title: 'Close to you.', emphasis: 'Simply connected.', lead: 'Your shops. Your purchases. Your delivery. SEQUO brings everyday shopping closer together.', action: 'Discover the app', secondary: 'Have a question?', imageAlt: 'Illustration of a shopkeeper handing a parcel to a rider outside a neighbourhood shop.', imageCaption: 'An everyday vision with SEQUO · Illustration', handoff: 'From the shop to your door.', handoffSmall: 'Connected at every step.', strip: 'Your shopping,', stripStrong: 'from discovery to delivery.', appTitle: 'Your everyday shopping,', appEmphasis: 'a few taps away.', appText: 'Explore products, prepare your basket and find the latest steps of your order. Keep your purchases within reach, in one app.', appAction: 'See how it works', rolesTitle: 'Different roles.', rolesEmphasis: 'One shared journey.', rolesText: 'Tools for the people who shop, prepare, carry and hand over parcels.', howTitle: 'From your choice to your door.',
       steps: [ { title: 'You choose.', text: 'Products and available options from merchants, brought together in your basket.' }, { title: 'The order moves forward.', text: 'The merchant prepares. The rider collects. You find the recorded steps in the app.' }, { title: 'You receive.', text: 'At your chosen address, or at a relay point offered for the items in your order.' } ],
     },
     products: {

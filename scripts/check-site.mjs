@@ -39,6 +39,11 @@ try {
     assert.equal(response.status, 200, route)
     const html = await response.text()
     assert(html.includes('<h1') && html.includes('<main'), 'Missing prerendered content: ' + route)
+    if (route === '/' || route === '/en') {
+      const main = html.match(/<main[\s\S]*?<\/main>/)[0]
+      assert(!/SEQUO Vendor|SEQUO Hub|vendor-(dashboard|orders)|hub-(dashboard|history)|role-grid/.test(main), 'Partner content on customer homepage: ' + route)
+      assert(main.includes('customer-home.webp') && main.includes('rider-invitation'), 'Missing customer journey or rider invitation: ' + route)
+    }
     assert(!html.includes('<!--app-html-->'), route)
     assert(!html.includes('Illustrations de présentation') && !html.includes('Le commerce local, mieux connecté'), route)
     assert(html.includes('sequo-favicon.svg?v=box-20261109') && !html.includes('vue.svg'), route)
@@ -135,5 +140,5 @@ try {
   if (socket) socket.close()
   if (browser && browser.exitCode === null) { const exited = new Promise(resolve => browser.once('exit', resolve)); browser.kill('SIGTERM'); await exited }
   if (server) server.close()
-  fs.rmSync(profile, { recursive: true, force: true })
+  fs.rmSync(profile, { recursive: true, force: true, maxRetries: 5, retryDelay: 100 })
 }
