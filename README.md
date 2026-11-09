@@ -2,7 +2,7 @@
 
 Public, French-first product website for **https://www.sequoservice.com**. Vue 3, TypeScript and Vite; no new runtime dependency is required for the redesign.
 
-The site explains shopping, merchant preparation, delivery and eligible relay collection. Eight dedicated pages cover the home, application, merchants, riders, relay points, about, help and contact, in French and English. The language switch preserves the current page. This is a public presentation site, not a customer checkout or staff admin application.
+The site explains shopping, merchant preparation, delivery and eligible relay collection. Nine dedicated pages cover the home, application, customer parcel collection, merchants, riders, relay-point partnerships, about, help and contact, in French and English. The language switch preserves the current page. This is a public presentation site, not a customer checkout or staff admin application.
 
 ## Run and build
 
@@ -16,7 +16,7 @@ npm run preview -- --port 4185
 npm run check:site
 ```
 
-`build` runs type checking, the Vite client/server builds and static prerendering of 16 localized HTML pages, plus a sitemap and 404 page. Vercel clean URLs serve these static pages without a runtime server. The generated static site is in `dist/`. Do not commit generated builds, dependencies or QA screenshots. Curated product screenshots are documented in `docs/SCREENSHOTS.md`.
+`build` runs type checking, the Vite client/server builds and static prerendering of 18 localized HTML pages, plus a sitemap and 404 page. Vercel clean URLs serve these static pages without a runtime server. The generated static site is in `dist/`. Do not commit generated builds, dependencies or QA screenshots. Curated product screenshots are documented in `docs/SCREENSHOTS.md`.
 
 ## Content and assets
 

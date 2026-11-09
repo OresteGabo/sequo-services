@@ -44,6 +44,13 @@ try {
       assert(!/SEQUO Vendor|SEQUO Hub|vendor-(dashboard|orders)|hub-(dashboard|history)|role-grid/.test(main), 'Partner content on customer homepage: ' + route)
       assert(main.includes('customer-home.webp') && main.includes('rider-invitation'), 'Missing customer journey or rider invitation: ' + route)
     }
+    if (route === paths.fr.relays || route === paths.en.relays) {
+      const main = html.match(/<main[\s\S]*?<\/main>/)[0]
+      assert(main.includes('retirer-colis') && main.includes('relay-pickup'), 'Missing customer collection guide')
+      assert(!main.includes('/screens/hub-') && !main.includes('SEQUO Hub'), 'Operator UI on customer collection page')
+      assert(main.includes(route.startsWith('/en') ? paths.en.hubPartners : paths.fr.hubPartners), 'Missing discreet partner link')
+    }
+    if (route === paths.fr.hubPartners || route === paths.en.hubPartners) assert(html.includes('/screens/hub-dashboard.webp'), 'Missing operator screenshots on partner page')
     assert(!html.includes('<!--app-html-->'), route)
     assert(!html.includes('Illustrations de présentation') && !html.includes('Le commerce local, mieux connecté'), route)
     assert(html.includes('sequo-favicon.svg?v=box-20261109') && !html.includes('vue.svg'), route)
@@ -76,7 +83,7 @@ try {
   await cdp('Page.enable', {}, sessionId)
   await cdp('Runtime.enable', {}, sessionId)
   const results = []
-  for (const width of [1440, 390, 320]) {
+  for (const width of [1440, 1024, 390, 320]) {
     await cdp('Emulation.setDeviceMetricsOverride', { width, height: width === 1440 ? 1000 : 844, deviceScaleFactor: 1, mobile: false }, sessionId)
     for (const locale of locales) {
       for (const page of pageIds) {
@@ -155,7 +162,7 @@ try {
   }
   assert.deepEqual(errors, [], 'Browser console/hydration errors')
   fs.writeFileSync(path.join(output, 'validation.json'), JSON.stringify({ prerenderedPages: knownPaths.size, checks: results, errors }, null, 2) + '\n')
-  console.log('PASS 16 prerendered routes; 48 responsive page checks; language links, image gallery, menu, help search, required form fields and 404; no console/hydration errors.')
+  console.log(`PASS ${knownPaths.size} prerendered routes; ${results.length} responsive page checks; language links, image gallery, menu, help search, rider motion, required form fields and 404; no console/hydration errors.`)
 } finally {
   for (const waiter of pending.values()) clearTimeout(waiter.timer)
   if (socket) socket.close()

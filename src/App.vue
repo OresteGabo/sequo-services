@@ -5,6 +5,7 @@ import AppScreens from './components/AppScreens.vue'
 import RiderMap from './components/RiderMap.vue'
 import RiderJourney from './components/RiderJourney.vue'
 import RiderGlyph from './components/RiderGlyph.vue'
+import RelayPickup from './components/RelayPickup.vue'
 import { publicContact } from './content/site'
 import { copy, paths, resolvePath, type Page, type ProductPage } from './content/pages'
 
@@ -16,11 +17,16 @@ const text = copy[locale]
 const menuOpen = ref(false)
 const menuToggle = ref<HTMLButtonElement | null>(null)
 const partnerMenu = ref<HTMLDetailsElement | null>(null)
-const products: ProductPage[] = ['app', 'merchants', 'riders', 'relays']
-const partners: ProductPage[] = ['merchants', 'riders', 'relays']
+const products: ProductPage[] = ['app', 'merchants', 'riders', 'hubPartners']
+const partners: ProductPage[] = ['merchants', 'riders', 'hubPartners']
 const product = page in text.products ? text.products[page as ProductPage] : null
 const link = (id: Page) => paths[locale][id]
-const contactCopy = page === 'home' ? text.home : text.common
+const contactCopy = page === 'home' ? text.home : page === 'relays' ? {
+  contactTitle: locale === 'fr' ? 'Une question' : 'A question',
+  contactEmphasis: locale === 'fr' ? 'sur votre retrait ?' : 'about collection?',
+  contactText: locale === 'fr' ? 'Un doute sur les possibilités de retrait ou les informations à préparer ? Consultez l’aide ou contactez l’équipe.' : 'Unsure about collection options or what to bring? Visit help or contact the team.',
+  contactAction: text.common.contactAction,
+} : text.common
 const mail = (subject: string) => `mailto:${publicContact.email}?subject=${encodeURIComponent(subject)}`
 function closeNavigation(event?: KeyboardEvent) {
   if (partnerMenu.value?.open) { partnerMenu.value.open = false; partnerMenu.value.querySelector('summary')?.focus() }
@@ -48,6 +54,7 @@ function prepareEmail() {
       <a class="brand" :href="link('home')" :aria-label="text.homeLabel"><img src="/brand/sequo-logo-light.svg" alt="SEQUO" width="1622" height="448" /></a>
       <nav id="navigation" :class="{ 'is-open': menuOpen }" :aria-label="text.mainNav">
         <a :href="link('app')" :aria-current="page === 'app' ? 'page' : undefined">{{ text.nav.app }}</a>
+        <a :href="link('relays')" :aria-current="page === 'relays' ? 'page' : undefined">{{ text.nav.relays }}</a>
         <details ref="partnerMenu" class="partner-menu">
           <summary :class="{ active: partners.includes(page as ProductPage) }">{{ text.partners }}<SequoIcon name="arrow-down" /></summary>
           <div class="partner-links"><a v-for="id in partners" :key="id" :href="link(id)" :aria-current="page === id ? 'page' : undefined"><SequoIcon :name="text.products[id].icon" /><span>{{ text.nav[id] }}<small>{{ text.products[id].product }}</small></span><SequoIcon name="arrow" /></a></div>
@@ -75,6 +82,14 @@ function prepareEmail() {
 
       <section class="journey-section section-space"><div class="wrap"><h2 id="journey-title">{{ text.home.howTitle }}</h2><ol class="journey-grid"><li v-for="(step, i) in text.home.steps" :key="step.title"><span class="step-number">0{{ i + 1 }}</span><h3>{{ step.title }}</h3><p>{{ step.text }}</p></li></ol></div></section>
       <aside class="rider-invitation wrap" aria-labelledby="rider-title"><span class="rider-invitation-icon"><RiderGlyph /></span><div><h2 id="rider-title">{{ text.home.riderTitle }}</h2><p>{{ text.home.riderText }}</p></div><a class="text-link" :href="link('riders')">{{ text.home.riderAction }}<SequoIcon name="arrow" /></a></aside>
+    </template>
+
+    <template v-else-if="page === 'relays'">
+      <section class="product-hero wrap relay-customer-hero" aria-labelledby="relay-title"><div class="product-copy"><p class="product-label"><SequoIcon name="parcel" />{{ text.nav.relays }}</p><h1 id="relay-title">{{ text.relays.title }}<br /><em>{{ text.relays.emphasis }}</em></h1><p class="hero-lead">{{ text.relays.lead }}</p><div class="hero-actions"><a class="button" :href="link('app')">{{ text.relays.action }}<SequoIcon name="arrow" /></a><a class="text-link" href="#retirer-colis">{{ text.relays.how }}<SequoIcon name="arrow-down" /></a></div></div><figure class="relay-customer-visual"><RelayPickup /><figcaption>{{ text.relays.visualCaption }}</figcaption></figure></section>
+      <section class="section-space wrap"><div class="section-heading"><h2>{{ text.relays.intro }}</h2><p class="section-intro">{{ text.relays.detail }}</p></div><div class="feature-grid"><article v-for="item in text.relays.features" :key="item.title"><span class="outline-icon"><SequoIcon :name="item.icon" /></span><h3>{{ item.title }}</h3><p>{{ item.text }}</p></article></div></section>
+      <section id="retirer-colis" class="journey-section section-space"><div class="wrap"><h2>{{ text.relays.how }}</h2><ol class="journey-grid"><li v-for="(step, i) in text.relays.steps" :key="step.title"><span class="step-number">0{{ i + 1 }}</span><h3>{{ step.title }}</h3><p>{{ step.text }}</p></li></ol></div></section>
+      <section class="wrap question-section"><div><SequoIcon name="info" /><h2>{{ text.relays.question }}</h2><p>{{ text.relays.answer }}</p><a class="text-link" :href="link('help')">{{ text.common.viewHelp }}<SequoIcon name="arrow" /></a></div></section>
+      <aside class="relay-partner-note wrap"><p>{{ text.relays.partnerPrompt }}</p><a class="text-link" :href="link('hubPartners')">{{ text.relays.partnerAction }}<SequoIcon name="arrow" /></a></aside>
     </template>
 
     <template v-else-if="product">
@@ -106,5 +121,5 @@ function prepareEmail() {
     <section v-if="route.found && page !== 'contact'" class="contact-band wrap"><div><h2>{{ contactCopy.contactTitle }}<br /><em>{{ contactCopy.contactEmphasis }}</em></h2><p>{{ contactCopy.contactText }}</p><a class="button button-light" :href="link('contact')">{{ contactCopy.contactAction }}<SequoIcon name="arrow" /></a></div><img src="/brand/sequo-symbol-white.svg" alt="" width="464" height="448" aria-hidden="true" /></section>
   </main>
 
-  <footer class="site-footer wrap"><div class="footer-main"><div class="footer-brand"><a class="brand" :href="link('home')" :aria-label="text.homeLabel"><img src="/brand/sequo-logo-light.svg" alt="SEQUO" width="1622" height="448" /></a><p>{{ text.common.footerLine }}<br />{{ text.common.footerSub }}</p></div><nav :aria-label="text.footerNav"><a v-for="id in ['app', 'merchants', 'riders', 'relays', 'about', 'help', 'contact'] as Page[]" :key="id" :href="link(id)" :aria-current="page === id ? 'page' : undefined">{{ text.nav[id] }}</a></nav><a class="footer-mail" :href="mail('Bonjour SEQUO')">{{ publicContact.email }}<SequoIcon name="arrow" /></a></div><div class="footer-bottom"><p>© {{ new Date().getFullYear() }} SEQUO Services</p><div class="footer-languages" role="group" :aria-label="text.language"><a :href="paths.fr[page]" lang="fr" hreflang="fr" :aria-current="locale === 'fr' ? 'true' : undefined">Français</a><a :href="paths.en[page]" lang="en" hreflang="en" :aria-current="locale === 'en' ? 'true' : undefined">English</a></div><a href="#top">{{ text.common.top }}<SequoIcon name="arrow-up" /></a></div></footer>
+  <footer class="site-footer wrap"><div class="footer-main"><div class="footer-brand"><a class="brand" :href="link('home')" :aria-label="text.homeLabel"><img src="/brand/sequo-logo-light.svg" alt="SEQUO" width="1622" height="448" /></a><p>{{ text.common.footerLine }}<br />{{ text.common.footerSub }}</p></div><nav :aria-label="text.footerNav"><a v-for="id in ['app', 'relays', 'riders', 'merchants', 'about', 'help', 'contact'] as Page[]" :key="id" :href="link(id)" :aria-current="page === id ? 'page' : undefined">{{ text.nav[id] }}</a></nav><a class="footer-mail" :href="mail('Bonjour SEQUO')">{{ publicContact.email }}<SequoIcon name="arrow" /></a></div><div class="footer-bottom"><p>© {{ new Date().getFullYear() }} SEQUO Services</p><div class="footer-languages" role="group" :aria-label="text.language"><a :href="paths.fr[page]" lang="fr" hreflang="fr" :aria-current="locale === 'fr' ? 'true' : undefined">Français</a><a :href="paths.en[page]" lang="en" hreflang="en" :aria-current="locale === 'en' ? 'true' : undefined">English</a></div><a href="#top">{{ text.common.top }}<SequoIcon name="arrow-up" /></a></div></footer>
 </template>

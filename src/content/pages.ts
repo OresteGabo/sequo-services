@@ -1,10 +1,10 @@
 export type Locale = 'fr' | 'en'
-export type Page = 'home' | 'app' | 'merchants' | 'riders' | 'relays' | 'about' | 'help' | 'contact'
-export type ProductPage = 'app' | 'merchants' | 'riders' | 'relays'
+export type Page = 'home' | 'app' | 'merchants' | 'riders' | 'relays' | 'hubPartners' | 'about' | 'help' | 'contact'
+export type ProductPage = 'app' | 'merchants' | 'riders' | 'hubPartners'
 
 export const paths: Record<Locale, Record<Page, string>> = {
-  fr: { home: '/', app: '/application', merchants: '/commercants', riders: '/livreurs', relays: '/points-relais', about: '/a-propos', help: '/aide', contact: '/contact' },
-  en: { home: '/en', app: '/en/app', merchants: '/en/merchants', riders: '/en/riders', relays: '/en/relay-points', about: '/en/about', help: '/en/help', contact: '/en/contact' },
+  fr: { home: '/', app: '/application', merchants: '/commercants', riders: '/livreurs', relays: '/points-relais', hubPartners: '/devenir-point-relais', about: '/a-propos', help: '/aide', contact: '/contact' },
+  en: { home: '/en', app: '/en/app', merchants: '/en/merchants', riders: '/en/riders', relays: '/en/relay-points', hubPartners: '/en/become-a-relay-point', about: '/en/about', help: '/en/help', contact: '/en/contact' },
 }
 export const pageIds = Object.keys(paths.fr) as Page[]
 export const locales: Locale[] = ['fr', 'en']
@@ -30,6 +30,7 @@ type Copy = {
   nav: Record<Page, string>; partners: string; menu: string; close: string; skip: string; mainNav: string; footerNav: string
   language: string; localeName: string; otherLanguage: string; homeLabel: string
   home: { customerNav: string; browse: string; riderTitle: string; riderText: string; riderAction: string; contactTitle: string; contactEmphasis: string; contactText: string; contactAction: string; title: string; emphasis: string; lead: string; action: string; secondary: string; imageAlt: string; imageCaption: string; handoff: string; handoffSmall: string; strip: string; stripStrong: string; appTitle: string; appEmphasis: string; appText: string; appAction: string; rolesTitle: string; rolesEmphasis: string; rolesText: string; howTitle: string; steps: { title: string; text: string }[] }
+  relays: { title: string; emphasis: string; lead: string; action: string; how: string; intro: string; detail: string; features: Feature[]; steps: { title: string; text: string }[]; question: string; answer: string; partnerPrompt: string; partnerAction: string; visualCaption: string }
   products: Record<ProductPage, Product>
   common: { discover: string; how: string; inside: string; enlarge: string; closeImage: string; nextScreen: string; previousScreen: string; appScreens: string; frenchScreen: string; viewHelp: string; explore: string; contactTitle: string; contactEmphasis: string; contactText: string; contactAction: string; footerLine: string; footerSub: string; top: string; screenshotAlt: string; related: string }
   about: { title: string; emphasis: string; lead: string; storyTitle: string; story: string[]; values: Feature[]; placeTitle: string; placeText: string; rolesTitle: string }
@@ -40,7 +41,7 @@ type Copy = {
 
 export const copy: Record<Locale, Copy> = {
   fr: {
-    nav: { home: 'Accueil', app: "L’application", merchants: 'Commerçants', riders: 'Livreurs', relays: 'Points relais', about: 'À propos', help: 'Aide', contact: 'Contact' },
+    nav: { home: 'Accueil', app: "L’application", merchants: 'Commerçants', riders: 'Livreurs', relays: 'Retirer un colis', hubPartners: 'Devenir point relais', about: 'À propos', help: 'Aide', contact: 'Contact' },
     partners: 'Nos partenaires', menu: 'Menu', close: 'Fermer', skip: 'Aller au contenu', mainNav: 'Navigation principale', footerNav: 'Explorer SEQUO',
     language: 'Langue du site', localeName: 'Français', otherLanguage: 'English', homeLabel: 'SEQUO — accueil',
     home: {
@@ -62,6 +63,22 @@ export const copy: Record<Locale, Copy> = {
         { title: 'La commande avance.', text: 'Le commerçant prépare. Le livreur prend en charge. Vous retrouvez les étapes dans l’application.' },
         { title: 'Vous recevez.', text: 'À domicile ou dans un point relais proposé pour les articles de votre commande.' },
       ],
+    },
+    relays: {
+      title: 'Votre colis,', emphasis: 'à retirer en relais.', lead: 'Pour les articles éligibles, choisissez un point relais proposé dans votre commande. Retrouvez les informations de retrait dans SEQUO et récupérez votre colis lorsqu’il est prêt.', action: 'Découvrir l’application client', how: 'Comment retirer mon colis ?',
+      intro: 'Un retrait, bien préparé.', detail: 'Le point relais est un lieu où vous récupérez votre commande. Vous utilisez votre application SEQUO habituelle : l’équipe du relais s’occupe de la remise.',
+      features: [
+        { icon: 'pin', title: 'Un lieu proposé pour votre panier.', text: 'Les points disponibles dépendent des articles de votre commande et des services ouverts. Vérifiez les informations du point avant de le choisir.' },
+        { icon: 'parcel', title: 'Une commande à suivre.', text: 'Consultez les étapes enregistrées dans l’application et vérifiez que votre colis est prêt au retrait avant de vous déplacer.' },
+        { icon: 'shield', title: 'Un code pour la remise.', text: 'Préparez votre code personnel de retrait et la pièce d’identité demandée. Le relais les vérifie avant de vous remettre le colis.' },
+      ],
+      steps: [
+        { title: 'Choisissez le point proposé.', text: 'Lors de votre commande, sélectionnez le retrait en relais lorsqu’il est disponible pour votre panier, puis vérifiez le lieu et les indications affichées.' },
+        { title: 'Vérifiez que le colis est prêt.', text: 'Retrouvez votre commande dans SEQUO. Attendez la disponibilité au retrait et consultez les informations du relais avant de partir.' },
+        { title: 'Présentez votre code au relais.', text: 'Sur place, présentez le code personnel et la pièce d’identité demandée. L’équipe vérifie ces éléments et confirme la remise de votre colis.' },
+      ],
+      question: 'Puis-je retirer tous mes achats en relais ?', answer: 'Les articles alimentaires, périssables et sensibles sont exclus de ce mode de réception. Les points proposés dépendent du panier et de leur disponibilité. Si aucun point n’est proposé, consultez les autres choix de réception dans votre commande.',
+      partnerPrompt: 'Vous représentez un commerce ?', partnerAction: 'Découvrir le partenariat point relais', visualCaption: 'Votre commande. Votre code. Votre colis.',
     },
     products: {
       app: {
@@ -127,9 +144,9 @@ export const copy: Record<Locale, Copy> = {
         ],
         question: 'Comment devenir partenaire livreur ?', answer: 'Écrivez à SEQUO en indiquant votre zone et votre disponibilité. L’équipe vous renseignera sur les conditions, les documents attendus et les possibilités de participation.', next: 'Faisons connaissance avant la première mission.',
       },
-      relays: {
-        name: 'Points relais', product: 'SEQUO Hub', icon: 'parcel', title: 'Un point de proximité.', emphasis: 'Un lien en plus.',
-        lead: 'Accueillez les colis éligibles et organisez les réceptions, les retraits et l’historique de votre point relais.',
+      hubPartners: {
+        name: 'Devenir point relais', product: 'SEQUO Hub', icon: 'store', title: 'Votre boutique,', emphasis: 'point relais SEQUO.',
+        lead: 'Vous représentez un commerce et souhaitez accueillir des colis ? Présentez votre lieu à l’équipe. Cette page explique le partenariat et l’espace SEQUO Hub destiné aux points relais.',
         action: 'Proposer un point relais', subject: 'Rejoindre SEQUO — point relais', intro: 'Chaque colis, à sa place.',
         detail: 'SEQUO Hub réunit les informations du point relais et les actions du comptoir dans un espace consacré aux colis qui lui sont confiés.',
         features: [
@@ -180,7 +197,7 @@ export const copy: Record<Locale, Copy> = {
     notFound: { title: 'Cette page reste à trouver.', text: 'Le lien a peut-être changé. Retrouvez les espaces SEQUO depuis l’accueil.', action: 'Revenir à l’accueil' },
   },
   en: {
-    nav: { home: 'Home', app: 'The app', merchants: 'Merchants', riders: 'Riders', relays: 'Relay points', about: 'About', help: 'Help', contact: 'Contact' },
+    nav: { home: 'Home', app: 'The app', merchants: 'Merchants', riders: 'Riders', relays: 'Collect a parcel', hubPartners: 'Become a relay point', about: 'About', help: 'Help', contact: 'Contact' },
     partners: 'Our partners', menu: 'Menu', close: 'Close', skip: 'Skip to content', mainNav: 'Main navigation', footerNav: 'Explore SEQUO',
     language: 'Website language', localeName: 'English', otherLanguage: 'Français', homeLabel: 'SEQUO — home',
     home: {
@@ -189,6 +206,22 @@ export const copy: Record<Locale, Copy> = {
       contactTitle: 'A question', contactEmphasis: 'before your first purchase?', contactText: 'App access, available shops and service areas: the team can help you take your first steps.', contactAction: 'Talk to the team',
       title: 'Close to you.', emphasis: 'Simply connected.', lead: 'Your shops. Your purchases. Your delivery. SEQUO brings everyday shopping closer together.', action: 'Discover the app', secondary: 'Have a question?', imageAlt: 'Illustration of a shopkeeper handing a parcel to a rider outside a neighbourhood shop.', imageCaption: 'An everyday vision with SEQUO · Illustration', handoff: 'From the shop to your door.', handoffSmall: 'Connected at every step.', strip: 'Your shopping,', stripStrong: 'from discovery to delivery.', appTitle: 'Your everyday shopping,', appEmphasis: 'a few taps away.', appText: 'Explore products, prepare your basket and find the latest steps of your order. Keep your purchases within reach, in one app.', appAction: 'See how it works', rolesTitle: 'Different roles.', rolesEmphasis: 'One shared journey.', rolesText: 'Tools for the people who shop, prepare, carry and hand over parcels.', howTitle: 'From your choice to your door.',
       steps: [ { title: 'You choose.', text: 'Products and available options from merchants, brought together in your basket.' }, { title: 'The order moves forward.', text: 'The merchant prepares. The rider collects. You find the recorded steps in the app.' }, { title: 'You receive.', text: 'At your chosen address, or at a relay point offered for the items in your order.' } ],
+    },
+    relays: {
+      title: 'Your parcel,', emphasis: 'ready for collection.', lead: 'For eligible items, choose a relay point offered with your order. Find collection details in SEQUO and pick up your parcel when it is ready.', action: 'Explore the customer app', how: 'How do I collect my parcel?',
+      intro: 'Arrive ready to collect.', detail: 'A relay point is a place where you collect your order. Use your usual SEQUO customer app: the relay team takes care of the handover.',
+      features: [
+        { icon: 'pin', title: 'A location offered for your basket.', text: 'Available points depend on your order’s items and the services currently open. Check the location details before choosing it.' },
+        { icon: 'parcel', title: 'An order you can follow.', text: 'Check the recorded steps in the app and make sure your parcel is ready for collection before travelling.' },
+        { icon: 'shield', title: 'A code for collection.', text: 'Bring your personal collection code and the identity document requested. The relay checks these before handing over your parcel.' },
+      ],
+      steps: [
+        { title: 'Choose an offered relay point.', text: 'When ordering, select relay collection if it is available for your basket. Check the location and the details shown.' },
+        { title: 'Check that your parcel is ready.', text: 'Find your order in SEQUO. Wait until collection is available and review the relay information before setting out.' },
+        { title: 'Present your code at the relay.', text: 'Show your personal collection code and the identity document requested. The team checks these and confirms the handover of your parcel.' },
+      ],
+      question: 'Can I collect every purchase at a relay?', answer: 'Food, perishable and sensitive goods are excluded from this collection method. Offered points depend on the basket and their availability. If no point is offered, check the other reception choices in your order.',
+      partnerPrompt: 'Do you represent a shop?', partnerAction: 'Explore the relay-point partnership', visualCaption: 'Your order. Your code. Your parcel.',
     },
     products: {
       app: {
@@ -212,8 +245,8 @@ export const copy: Record<Locale, Copy> = {
         screens: [ { id: 'rider-missions', label: 'Missions', caption: 'SEQUO Rider · Missions' }, { id: 'rider-history', label: 'History', caption: 'SEQUO Rider · Completed missions' } ],
         question: 'How do I become a rider partner?', answer: 'Write to SEQUO with your location and availability. The team can explain the conditions, required documents and participation opportunities.', next: 'Let’s meet before the first mission.',
       },
-      relays: {
-        name: 'Relay points', product: 'SEQUO Hub', icon: 'parcel', title: 'A nearby collection point.', emphasis: 'One more connection.', lead: 'Welcome eligible parcels and organise receipts, collections and history at your relay point.', action: 'Propose a relay point', subject: 'Join SEQUO — relay point', intro: 'Every parcel in its place.', detail: 'SEQUO Hub brings relay-point information and counter actions together in a workspace for the parcels entrusted to it.',
+      hubPartners: {
+        name: 'Become a relay point', product: 'SEQUO Hub', icon: 'store', title: 'Your shop,', emphasis: 'a SEQUO relay point.', lead: 'Represent a shop and interested in welcoming parcels? Introduce your location to the team. This page explains the partnership and the SEQUO Hub workspace for relay operators.', action: 'Propose a relay point', subject: 'Join SEQUO — relay point', intro: 'Every parcel in its place.', detail: 'SEQUO Hub brings relay-point information and counter actions together in a workspace for the parcels entrusted to it.',
         features: [ { icon: 'parcel', title: 'Recorded arrivals.', text: 'Record the parcels present at the relay and find their storage locations.' }, { icon: 'shield', title: 'Verified collection.', text: 'Check the personal code and identity before confirming a customer handover.' }, { icon: 'return', title: 'A retained history.', text: 'View deposits, collections and the receipt of eligible returns.' } ],
         steps: [ { title: 'Introduce your location.', text: 'Share your address, opening hours and capacity to welcome parcels.' }, { title: 'Organise the counter.', text: 'Prepare storage locations and the people who will handle receipts and collections.' }, { title: 'Follow every handover.', text: 'Track the parcels entrusted to the point and confirm each step in SEQUO Hub.' } ],
         screens: [ { id: 'hub-dashboard', label: 'The relay', caption: 'SEQUO Hub · Parcel overview', framed: true }, { id: 'hub-history', label: 'History', caption: 'SEQUO Hub · Relay events', framed: true } ],
@@ -248,6 +281,6 @@ export function pageMeta(locale: Locale, page: Page) {
     const product = text.products[page as ProductPage]
     return { title: `${product.product} — ${text.nav[page]}`, description: product.lead }
   }
-  const section = text[page as 'about' | 'help' | 'contact']
+  const section = text[page as 'relays' | 'about' | 'help' | 'contact']
   return { title: `${text.nav[page]} — SEQUO`, description: section.lead }
 }
