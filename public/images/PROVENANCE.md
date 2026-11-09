@@ -54,3 +54,15 @@ Use case: photorealistic-natural. Asset type: landscape editorial image for SEQU
 ## Site-wide disclosure
 
 The commerce hero on home/about explicitly says AI-generated image. Rider route and relay collection SVG illustrations were created with AI-assisted code and carry visible illustration-created-with-AI captions. Decorative UI icons and the established brand identity are interface assets. Real app captures remain labelled app screenshot/demonstration; they are not generated app mockups. The screenshots are not evidence of live public availability.
+
+## Rider scooter hero — 2026-11-09
+
+- Asset: `rider-scooter.webp`, 1200 × 800, proportional resize only, WebP quality 88/method 6. No crop, composite or semantic editing.
+- Created with the built-in image_gen tool using the approved `public/brand/sequo-logo-light.png` as the brand reference. The rider and location are fictional; this is not evidence of an operating courier or endorsement.
+- Original: `exec-c1846994-5d22-4b9a-ac93-be8d6aa0f581.png` in the generated-images archive.
+- SHA-256: `a345d6ac0c1b3c2fb487b4a2b870ba42a07690930993f4efe805dcef92f1a436`.
+- The actual generated image was visually reviewed for scooter/rider anatomy, helmet, package and visible SEQUO identity. Both languages display an explicit AI-generated image label and fictional-scene caption. The second, scroll-driven route illustration remains unchanged.
+
+Prompt:
+
+Use case: photorealistic-natural. Asset type: landscape 3:2 hero photograph-style illustration for SEQUO delivery rider recruitment website. Reference image is the approved SEQUO brand identity only; faithfully reproduce its folded-S green parcel symbol and distinctive uppercase SEQUO wordmark as a clean professionally printed large label on a cream delivery package secured on a scooter's rear rack. Do not reinterpret the logo. Scene: fictional adult Black Togolese delivery rider wearing a properly fastened open-face helmet and plain forest-green overshirt, sitting on a clean modern dark green commuter scooter, stopped safely beside a neighborhood shop on a quiet paved street in Lomé. Both hands naturally on handlebars, relaxed confident expression looking toward the street, three-quarter side view. Scooter, rider, rear-rack package and brand label all clearly visible, with physical load safely secured by straps, plausible vehicle mechanics and anatomy. Package face with SEQUO logo angled toward camera, large enough to read. Editorial lifestyle photography, natural afternoon daylight, cream storefronts, subtle tropical foliage, warm neutral tones and emerald/mint accents matching the supplied identity. Keep entire helmet, scooter wheels and package in frame, landscape composition with breathing room, no text overlay or slogans, no unrelated logos or license plate text, no watermark, no speed blur, no real-person endorsement. This is a fictional illustrative scene and will be visibly labelled AI generated in surrounding website HTML.
