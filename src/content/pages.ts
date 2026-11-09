@@ -52,7 +52,7 @@ export const copy: Record<Locale, Copy> = {
       lead: 'Vos commerçants. Vos achats. Votre livraison. SEQUO rapproche tout ce qui compte au quotidien.',
       action: 'Découvrir l’application', secondary: 'Une question ?',
       imageAlt: 'Illustration d’une commerçante remettant un colis à un livreur devant une boutique de quartier.',
-      imageCaption: 'Une vision du quotidien avec SEQUO · Illustration', handoff: 'Du commerce à votre porte.', handoffSmall: 'Un lien à chaque étape.',
+      imageCaption: 'Scène fictive du quotidien avec SEQUO.', handoff: 'Du commerce à votre porte.', handoffSmall: 'Un lien à chaque étape.',
       strip: 'Vos achats,', stripStrong: 'du choix à la réception.',
       appTitle: 'Votre quotidien,', appEmphasis: 'en quelques gestes.',
       appText: 'Découvrez les produits, préparez votre panier et retrouvez les étapes de votre commande. Une application pour garder vos achats à portée de main.',
@@ -103,8 +103,8 @@ export const copy: Record<Locale, Copy> = {
         question: 'Puis-je déjà télécharger l’application ?', answer: 'Le lancement public est en préparation. Contactez l’équipe pour connaître les possibilités d’accès et les zones ouvertes. Les liens officiels seront publiés lorsqu’ils seront disponibles.', next: 'Une question avant de commencer ?',
       },
       merchants: {
-        name: 'Commerçants', product: 'SEQUO Vendor', icon: 'store', title: 'Votre boutique.', emphasis: 'Votre activité.',
-        lead: 'Présentez vos produits et organisez les commandes à préparer, avec un espace consacré à votre commerce.',
+        name: 'Commerçants', product: 'SEQUO Vendor', icon: 'store', title: 'Votre commerce,', emphasis: 'avec SEQUO.',
+        lead: 'Vous tenez une boutique et souhaitez proposer vos produits aux clients de SEQUO ? Présentez votre commerce, préparez votre catalogue et organisez les commandes avec SEQUO Vendor, l’application dédiée aux commerçants.',
         action: 'Présenter ma boutique', subject: 'Rejoindre SEQUO — commerçant', intro: 'De la vitrine à la préparation.',
         detail: 'SEQUO Vendor accompagne le travail du commerçant : publier les bons produits, répondre aux commandes et suivre ce qui a été préparé.',
         features: [
@@ -204,7 +204,7 @@ export const copy: Record<Locale, Copy> = {
       customerNav: 'Your shopping journey', browse: 'Explore the app',
       riderTitle: 'Interested in delivering with SEQUO?', riderText: 'Meet the team and learn about missions, requirements and partnership opportunities in your area.', riderAction: 'Explore the rider partnership',
       contactTitle: 'A question', contactEmphasis: 'before your first purchase?', contactText: 'App access, available shops and service areas: the team can help you take your first steps.', contactAction: 'Talk to the team',
-      title: 'Close to you.', emphasis: 'Simply connected.', lead: 'Your shops. Your purchases. Your delivery. SEQUO brings everyday shopping closer together.', action: 'Discover the app', secondary: 'Have a question?', imageAlt: 'Illustration of a shopkeeper handing a parcel to a rider outside a neighbourhood shop.', imageCaption: 'An everyday vision with SEQUO · Illustration', handoff: 'From the shop to your door.', handoffSmall: 'Connected at every step.', strip: 'Your shopping,', stripStrong: 'from discovery to delivery.', appTitle: 'Your everyday shopping,', appEmphasis: 'a few taps away.', appText: 'Explore products, prepare your basket and find the latest steps of your order. Keep your purchases within reach, in one app.', appAction: 'See how it works', rolesTitle: 'Different roles.', rolesEmphasis: 'One shared journey.', rolesText: 'Tools for the people who shop, prepare, carry and hand over parcels.', howTitle: 'From your choice to your door.',
+      title: 'Close to you.', emphasis: 'Simply connected.', lead: 'Your shops. Your purchases. Your delivery. SEQUO brings everyday shopping closer together.', action: 'Discover the app', secondary: 'Have a question?', imageAlt: 'Illustration of a shopkeeper handing a parcel to a rider outside a neighbourhood shop.', imageCaption: 'A fictional everyday scene with SEQUO.', handoff: 'From the shop to your door.', handoffSmall: 'Connected at every step.', strip: 'Your shopping,', stripStrong: 'from discovery to delivery.', appTitle: 'Your everyday shopping,', appEmphasis: 'a few taps away.', appText: 'Explore products, prepare your basket and find the latest steps of your order. Keep your purchases within reach, in one app.', appAction: 'See how it works', rolesTitle: 'Different roles.', rolesEmphasis: 'One shared journey.', rolesText: 'Tools for the people who shop, prepare, carry and hand over parcels.', howTitle: 'From your choice to your door.',
       steps: [ { title: 'You choose.', text: 'Products and available options from merchants, brought together in your basket.' }, { title: 'The order moves forward.', text: 'The merchant prepares. The rider collects. You find the recorded steps in the app.' }, { title: 'You receive.', text: 'At your chosen address, or at a relay point offered for the items in your order.' } ],
     },
     relays: {
@@ -232,7 +232,7 @@ export const copy: Record<Locale, Copy> = {
         question: 'Can I download the app yet?', answer: 'The public launch is being prepared. Contact the team to ask about access and open service areas. Official download links will be published when available.', next: 'A question before getting started?',
       },
       merchants: {
-        name: 'Merchants', product: 'SEQUO Vendor', icon: 'store', title: 'Your shop.', emphasis: 'Your business.', lead: 'Present your products and organise incoming orders in a space dedicated to your shop.', action: 'Introduce my shop', subject: 'Join SEQUO — merchant', intro: 'From the shopfront to preparation.', detail: 'SEQUO Vendor supports the merchant’s day: publishing products, responding to orders and keeping track of preparation.',
+        name: 'Merchants', product: 'SEQUO Vendor', icon: 'store', title: 'Your shop,', emphasis: 'with SEQUO.', lead: 'Run a shop and want to offer your products to SEQUO customers? Introduce your business, prepare your catalogue and organise incoming orders with SEQUO Vendor, the app for merchants.', action: 'Introduce my shop', subject: 'Join SEQUO — merchant', intro: 'From the shopfront to preparation.', detail: 'SEQUO Vendor supports the merchant’s day: publishing products, responding to orders and keeping track of preparation.',
         features: [ { icon: 'store', title: 'Your catalogue.', text: 'Add products, photos, options and the details that help customers choose.' }, { icon: 'parcel', title: 'Your orders.', text: 'Review incoming orders, confirm preparation and mark parcels as ready for collection.' }, { icon: 'check', title: 'Your overview.', text: 'Find the activity, returns and settlement records associated with your shop.' } ],
         steps: [ { title: 'Tell us about your shop.', text: 'Introduce your business, products and location to the SEQUO team.' }, { title: 'Prepare your shopfront.', text: 'Organise your catalogue, photos, options and shop information.' }, { title: 'Organise preparation.', text: 'Use your workspace to follow orders and parcels awaiting collection.' } ],
         screens: [ { id: 'vendor-dashboard', label: 'Overview', caption: 'SEQUO Vendor · Dashboard' }, { id: 'vendor-orders', label: 'Orders', caption: 'SEQUO Vendor · Order preparation' } ],

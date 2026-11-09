@@ -23,3 +23,9 @@ Browser checks verify movement with scroll, sticky visibility and reduced-motion
 ## Relay customers and operators
 
 The existing `/points-relais` and `/en/relay-points` URLs now explain parcel collection to customers: eligible basket options, readiness before travelling, personal collection code and requested identification. They use a collection illustration, not an operator app screenshot or invented live relay locations. A direct customer navigation link prioritizes this journey. Shop onboarding and existing Hub dashboard/history captures have moved to `/devenir-point-relais` and `/en/become-a-relay-point`, available through the partner menu and a small link after the customer guide. Each new page has localized metadata, canonical/alternate URLs and a sitemap entry. The site now contains nine pages in two languages.
+
+## Merchant guidance and AI transparency
+
+The merchant page now explicitly addresses shop owners. Added order-preparation guidance, a four-part partnership preparation checklist and four merchant FAQs covering access, catalogue information, optional bargaining and commercial terms. Existing Vendor screenshots remain unchanged as real app demonstrations. No sales figures, fee amounts, guaranteed onboarding or live settlement claims were introduced.
+
+Two new built-in image_gen illustrations show catalogue photography and protective parcel preparation. Both have visible localized AI-generated labels and fictional-scene captions. The existing home/about commerce photograph now explicitly says AI-generated; rider and relay vector scenes disclose AI-assisted creation. App captures are separately labelled app screenshot/demonstration. Exact generation prompts, processing and final asset hashes are in public/images/PROVENANCE.md. UI icons and the established identity remain interface assets.

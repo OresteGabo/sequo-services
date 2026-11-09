@@ -438,3 +438,26 @@ h3 { font-size: 22px; font-weight: 600; line-height: 1.3; letter-spacing: -.6px;
 .relay-partner-note p { color: var(--muted); font-size: 13px; }
 .relay-partner-note .text-link { font-size: 12px; }
 @media (max-width: 640px) { .relay-partner-note { align-items: flex-start; flex-direction: column; gap: 5px; margin-bottom: 40px; } }
+
+/* Explicit media provenance stays adjacent to each editorial image. */
+.ai-label { display: inline-block; padding: 3px 8px; margin-right: 8px; border: 1px solid #c6d4c3; border-radius: 5px; color: #365442; background: #edf2e9; font-size: 10px; font-weight: 600; line-height: 1.6; }
+.ai-image { min-width: 0; }
+.ai-image > img { display: block; width: 100%; height: auto; border-radius: 16px 60px 16px 16px; }
+.ai-image figcaption { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 16px; font-size: 11px; line-height: 1.6; color: var(--muted); }
+.ai-image .ai-label { margin: 0; }
+.ai-credit, .screenshot-origin { display: block; margin-top: 10px; font-size: 10px; color: var(--muted); }
+.merchant-story { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; padding-bottom: 90px; }
+.merchant-story h2 { font-size: 38px; }
+.merchant-story .section-intro { margin-top: 24px; }
+.merchant-points { list-style: none; margin-top: 28px; display: grid; gap: 20px; }
+.merchant-points li { display: flex; gap: 14px; font-size: 14px; color: var(--muted); }
+.merchant-points .icon { flex-shrink: 0; width: 20px; color: var(--green); }
+.merchant-preparation { background: #edf2e8; }
+.merchant-checklist { display: grid; grid-template-columns: 1fr 1fr; gap: 45px 70px; list-style: none; }
+.merchant-checklist li { display: flex; align-items: flex-start; gap: 22px; border-top: 1px solid #c6d4c3; padding-top: 24px; }
+.merchant-checklist h3 { font-size: 21px; }
+.merchant-checklist p { color: var(--muted); font-size: 14px; margin-top: 14px; }
+.merchant-questions { padding-block: 75px; display: grid; grid-template-columns: .8fr 1.2fr; gap: 80px; }
+.merchant-questions h2 { font-size: 34px; }
+@media (max-width: 900px) { .merchant-story { gap: 40px; } .merchant-story h2 { font-size: 31px; } .merchant-questions { gap: 40px; } }
+@media (max-width: 640px) { .merchant-story { grid-template-columns: minmax(0, 1fr); gap: 32px; padding-bottom: 55px; } .merchant-checklist { grid-template-columns: minmax(0, 1fr); gap: 30px; } .merchant-questions { grid-template-columns: minmax(0, 1fr); gap: 30px; padding-block: 50px; } .ai-image > img { border-top-right-radius: 40px; } .ai-image figcaption { font-size: 10px; } .hero-visual figcaption .ai-label { margin-bottom: 5px; } }

@@ -19,7 +19,7 @@ onUnmounted(() => { window.removeEventListener('scroll', schedule); window.remov
 </script>
 <template>
   <section id="parcours-livreur" ref="section" class="rider-journey wrap" aria-labelledby="rider-journey-title">
-    <div class="rider-journey-visual"><p class="section-label">{{ locale === 'fr' ? 'Du commerce au client' : 'From shop to customer' }}</p><h2 id="rider-journey-title">{{ locale === 'fr' ? 'Vous faites le lien.' : 'You make the connection.' }}</h2><RiderMap :progress="progress" :shop="locale === 'fr' ? 'Le commerce' : 'The shop'" :destination="locale === 'fr' ? 'Le client' : 'The customer'" /><p class="rider-map-note">{{ locale === 'fr' ? 'Suivez le parcours en faisant défiler la page.' : 'Follow the journey as you scroll.' }}</p></div>
+    <div class="rider-journey-visual"><p class="section-label">{{ locale === 'fr' ? 'Du commerce au client' : 'From shop to customer' }}</p><h2 id="rider-journey-title">{{ locale === 'fr' ? 'Vous faites le lien.' : 'You make the connection.' }}</h2><RiderMap :progress="progress" :shop="locale === 'fr' ? 'Le commerce' : 'The shop'" :destination="locale === 'fr' ? 'Le client' : 'The customer'" /><p class="rider-map-note">{{ locale === 'fr' ? 'Suivez le parcours en faisant défiler la page.' : 'Follow the journey as you scroll.' }}</p><p class="ai-credit">{{ locale === 'fr' ? 'Illustration créée avec l’IA' : 'Illustration created with AI' }}</p></div>
     <ol class="rider-journey-steps"><li v-for="(step, i) in steps" :key="step.title" :class="{ 'is-current': Math.min(2, Math.floor(progress * 3)) === i }"><span class="step-number">0{{ i + 1 }}</span><h3>{{ step.title }}</h3><p>{{ step.text }}</p></li></ol>
   </section>
 </template>

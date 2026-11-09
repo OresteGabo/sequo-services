@@ -51,6 +51,10 @@ try {
       assert(main.includes(route.startsWith('/en') ? paths.en.hubPartners : paths.fr.hubPartners), 'Missing discreet partner link')
     }
     if (route === paths.fr.hubPartners || route === paths.en.hubPartners) assert(html.includes('/screens/hub-dashboard.webp'), 'Missing operator screenshots on partner page')
+    if (route === paths.fr.merchants || route === paths.en.merchants) {
+      assert(html.includes('merchant-catalogue.webp') && html.includes('merchant-preparation.webp'), 'Missing merchant illustrations')
+      assert(html.includes('merchant-checklist') && html.includes('merchant-questions'), 'Missing merchant guidance')
+    }
     assert(!html.includes('<!--app-html-->'), route)
     assert(!html.includes('Illustrations de présentation') && !html.includes('Le commerce local, mieux connecté'), route)
     assert(html.includes('sequo-favicon.svg?v=box-20261109') && !html.includes('vue.svg'), route)
@@ -147,6 +151,14 @@ try {
           await cdp('Emulation.setEmulatedMedia', { features: [] }, sessionId)
           await evaluate("window.scrollTo({ top: 0, behavior: 'instant' })", sessionId)
           await pause(100)
+        }
+        if (page === 'merchants' || page === 'home' || page === 'about') {
+          assert(await evaluate(`[...document.querySelectorAll('figure')].filter(f => f.querySelector('img[src^="/images/"]')).every(f => f.querySelector('.ai-label')?.textContent.includes(${JSON.stringify(locale === 'fr' ? 'IA' : 'AI')}))`, sessionId), 'Missing visible AI disclosure')
+        }
+        if (page === 'merchants' && width === 390) {
+          assert.equal(await evaluate('document.querySelectorAll(".merchant-questions details").length', sessionId), 4)
+          await evaluate('document.querySelector(".merchant-questions summary").click()', sessionId)
+          assert(await evaluate('document.querySelector(".merchant-questions details").open', sessionId))
         }
         if (page === 'contact') {
           assert(!(await evaluate('document.querySelector("form").checkValidity()', sessionId)))
