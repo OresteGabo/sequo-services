@@ -55,7 +55,7 @@ try {
       assert(html.includes('merchant-catalogue-partner.webp') && html.includes('merchant-preparation-partner.webp'), 'Missing merchant illustrations')
       assert(html.includes('merchant-checklist') && html.includes('merchant-questions'), 'Missing merchant guidance')
     }
-    if (route === paths.fr.riders || route === paths.en.riders) assert(html.includes('rider-scooter-street.webp') && html.includes('rider-journey'), 'Missing rider photo or preserved animated route')
+    if (route === paths.fr.riders || route === paths.en.riders) assert(html.includes('rider-sequo-box.webp') && html.includes('rider-journey'), 'Missing rider photo or preserved animated route')
     if (route === paths.fr.relays || route === paths.en.relays) assert(html.includes('relay-empty') && html.includes('points-disponibles'), 'Missing coming-soon relay empty state')
     if (route === paths.fr.access || route === paths.en.access || route === paths.fr.contact || route === paths.en.contact) assert(html.includes('https://wa.me/33780434690'), 'Missing approved WhatsApp contact')
     if (route === paths.fr.app || route === paths.en.app) assert(html.includes('customer-basket.webp') && html.includes('customer-delivery.webp') && html.includes('walkthrough-demo-note'), 'Missing real walkthrough captures/disclosure')
