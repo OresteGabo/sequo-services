@@ -33,6 +33,6 @@ Public launch, store listings and active service zones have not been confirmed. 
 
 This static site makes no API calls, handles no credentials and links to no administrative application. The apps' production API origin is `https://api.sequoservice.com`; the previous planning documents' plural API spelling is stale.
 
-No tracked hosting configuration establishes the live provider or a push-to-deploy trigger. Building locally does not publish the redesign. Confirm the existing hosting project's repository, branch and static output settings before a separately verified deployment; see the publication checklist.
+Publication uses the existing [Vercel project](https://vercel.com/orestegabos-projects/sequo-services), connected to `OresteGabo/sequo-services` on GitHub. A normal fast-forward push to `main` triggered the verified production deployment on 2026-11-09. The redesign is now live at https://www.sequoservice.com/; the apex domain redirects there. See the verification report for deployment evidence and rollback. A local build or commit alone does not publish the site; verify the Vercel commit status and the actual public domain after each push. Preserve the existing hosting project and domain setup.
 
 Older documents (`PRODUCT_BRIEF`, `DESIGN_AND_CONTENT`, `SEQUO_API_SUMMARY`, `TECH_STACK`, `ROADMAP`, `IMPLEMENTATION_PLAN`) are historical planning material. Their payment, distribution, domain and availability statements must be checked against the current claim review and actual app/API code before reuse.

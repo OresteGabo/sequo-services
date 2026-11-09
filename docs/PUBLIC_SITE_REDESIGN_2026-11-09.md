@@ -1,5 +1,7 @@
 # Public website redesign and verification — 2026-11-09
 
+> **Publication confirmed, 2026-11-09:** the owner subsequently requested publication. The redesign is now live at https://www.sequoservice.com/. The original local-only milestone below is historical; see the publication addendum for the current release evidence.
+
 ## Result and scope
 
 The existing `sequo-services` Vue site has been redesigned in place. The French-first page uses the apps’ SEQUO logo and emerald family, warm neutral backgrounds, a newly generated and labelled commerce illustration, an interactive illustrated customer journey, four role panels, native FAQ disclosures and owner-approved email contact. Mobile and desktop share the same content and brand.
@@ -48,11 +50,11 @@ Browser checks used the in-app Chromium browser with responsive viewport overrid
 
 Temporary visual proof was saved **outside Git** at `/tmp/sequo-public-desktop-2026-11-09.jpg` and `/tmp/sequo-public-mobile-2026-11-09.jpg`. Do not commit those captures. See `public/images/PROVENANCE.md` for the deliberately published illustrative asset.
 
-## Public site and publication gate
+## Public site and publication gate — original local QA milestone
 
 The live domain responded HTTP 200 and still showed the old English Hub-first page when reviewed. Public response headers indicate Vercel behind Cloudflare. This does not identify the owner's exact Vercel project or prove which Git branch publishes to that domain.
 
-There is no local `.vercel/project.json`, Vercel CLI or tracked host configuration in this checkout. The installed GitHub CLI also has no verified authentication, so repository deployment records were not available through the existing CLI session. No publishing command, remote push, DNS change or hosting-account change has been made. **The redesign is locally verified; it has not been published to www.sequoservice.com.**
+There is no local `.vercel/project.json`, Vercel CLI or tracked host configuration in this checkout. The installed GitHub CLI also has no verified authentication, so repository deployment records were not available through the existing CLI session. At the original local QA milestone, no publishing command, remote push, DNS change or hosting-account change had been made. That milestone ended before publication; the subsequent confirmed release is recorded below.
 
 ### Publication steps for the existing owner/project
 
@@ -63,4 +65,22 @@ There is no local `.vercel/project.json`, Vercel CLI or tracked host configurati
 5. Publish the same reviewed commit through the existing project. Verify the actual public domain's French title/content, images, anchors and payment-availability answer after publication.
 6. If the public check fails, use that host's previous-deployment rollback. Keep the code/content evidence attached to the release; do not claim publication based only on a successful local build or Git push.
 
-Until publication is verified, the next task can depend on the committed source and local preview only. Real payment connectivity, unapproved commercial values, public launch/service coverage and app-store links remain separate owner/operator decisions.
+The original checklist above remains useful for future releases. Publication was subsequently verified as recorded below. Real payment connectivity, unapproved commercial values, public launch/service coverage and app-store links remain separate owner/operator decisions.
+
+
+## Publication addendum — 2026-11-09
+
+The owner explicitly requested publication after reviewing the local redesign.
+
+- Verified the connected GitHub repository through the GitHub connector: `OresteGabo/sequo-services`, default branch `main`, authorized push access. The previous commit’s successful Vercel check identified the existing `orestegabos-projects/sequo-services` project. The connector worked even though the separate local GitHub CLI authentication had not been verified.
+- `git fetch origin main` confirmed remote `76dc61580d84c479a850d6232e4b807e8fc69d13`; the only local additions were reviewed implementation `12ceefd` and documentation `a9ce77b`.
+- `git push origin HEAD:main` succeeded as a normal fast-forward, `76dc615..a9ce77b`; no forced update, DNS, environment, provider, account-access or hosting-project change.
+- GitHub reported Vercel **success** for `a9ce77b76835df6a9ffe2389e3dc09b5f33bf39d`: [production deployment](https://vercel.com/orestegabos-projects/sequo-services/HtXS1LfHw4xa4eorKM7G6QgMg8MX).
+- Public verification at `2026-11-09T09:34:43Z`: `https://www.sequoservice.com/` returned HTTP 200 with the new French title and metadata; `https://sequoservice.com/` returned HTTP 200 after redirecting to the www domain.
+- The served HTML, JavaScript, CSS, hero illustration, logo and favicon matched the locally reviewed `dist/` files byte for byte (SHA-256 comparison). Live script `index-C5dNIhC6.js` and stylesheet `index-DOX78Vyy.css` match the recorded production build above.
+- Actual live browser checks passed at desktop 1280 px and phone 390 px: images loaded, no horizontal document overflow, all section anchors resolved, the customer journey and merchant/relay role panels updated, mobile navigation opened/closed and reached the chosen section, and the payment-availability FAQ showed the correct non-live status. No console entries were reported in the live tab. These are responsive browser checks, not physical-device tests.
+- The live page was left open for the owner. Visual proof `/tmp/sequo-public-live-2026-11-09.jpg` and the detailed hash receipt `/tmp/sequo-public-publication-verification-2026-11-09.json` remain outside Git; no test screenshot is committed.
+
+The follow-up documentation commit changes no website source, assets, dependencies or configuration. Its push uses the same existing production connection; the final live asset check must still match the verified build.
+
+For a rollback, preserve history: prepare a reviewed revert of the redesign commit, build it and publish it through the same connection, or use the existing host’s previous-deployment rollback. Baseline `76dc61580d84c479a850d6232e4b807e8fc69d13` remains available. Do not force-reset remote history or create a replacement hosting project.
