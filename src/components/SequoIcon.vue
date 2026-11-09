@@ -7,6 +7,7 @@ const paths: Record<string, string> = {
   bag: "M5 7h14l1 14H4L5 7Zm3 1V6a4 4 0 0 1 8 0v2",
   store:
     "M3 10h18l-2-6H5l-2 6Zm1 0v10h16V10M9 20v-6h6v6M3 10a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0",
+  rider: "M8 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm14 0a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM5 18h8l4-8h2l3 8M9 12l3 2-2 4M10 10l2-4 4 5h3M13 3h3M3 10h5v4H3Z",
   route:
     "M5 6a2 2 0 1 0 0 .01M19 18a2 2 0 1 0 0 .01M8 6h7a4 4 0 0 1 0 8H9a4 4 0 0 0 0 8h6",
   parcel: "m3 7 9-5 9 5v10l-9 5-9-5V7Zm0 0 9 5 9-5M12 12v10M7.5 4.5l9 5v4",

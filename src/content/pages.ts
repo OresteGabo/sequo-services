@@ -107,8 +107,8 @@ export const copy: Record<Locale, Copy> = {
         question: 'Quelles sont les conditions pour rejoindre SEQUO ?', answer: 'Les conditions de partenariat et les possibilités d’ouverture sont à confirmer avec l’équipe. Présentez votre boutique par email : l’activité, la localisation et les produits sont un bon point de départ.', next: 'Votre boutique a sa place dans la conversation.',
       },
       riders: {
-        name: 'Livreurs', product: 'SEQUO Rider', icon: 'route', title: 'Chaque mission,', emphasis: 'étape par étape.',
-        lead: 'Les informations utiles pour prendre en charge les colis, rejoindre la destination et confirmer leur remise.',
+        name: 'Livreurs', product: 'SEQUO Rider', icon: 'rider', title: 'Devenez livreur', emphasis: 'partenaire SEQUO.',
+        lead: 'Vous souhaitez livrer des colis dans votre zone ? Rejoignez les livreurs partenaires de SEQUO pour relier les commerces à leurs clients. Présentez votre disponibilité à l’équipe et découvrez les conditions pour commencer.',
         action: 'Devenir livreur partenaire', subject: 'Rejoindre SEQUO — livreur', intro: 'Un espace pour avancer clairement.',
         detail: 'Retrouvez les missions qui vous sont attribuées et les étapes à confirmer, sans perdre le contexte du colis.',
         features: [
@@ -206,7 +206,7 @@ export const copy: Record<Locale, Copy> = {
         question: 'What are the conditions for joining SEQUO?', answer: 'Partnership terms and opening opportunities should be confirmed with the team. Introduce your shop by email: its activity, location and products are a useful starting point.', next: 'Your shop belongs in the conversation.',
       },
       riders: {
-        name: 'Riders', product: 'SEQUO Rider', icon: 'route', title: 'Every mission,', emphasis: 'step by step.', lead: 'The information you need to collect parcels, reach the destination and confirm a handover.', action: 'Become a rider partner', subject: 'Join SEQUO — rider', intro: 'A clear space for the way ahead.', detail: 'Find the missions assigned to you and the steps to confirm, without losing the context of the parcel.',
+        name: 'Riders', product: 'SEQUO Rider', icon: 'rider', title: 'Become a SEQUO', emphasis: 'delivery rider.', lead: 'Interested in delivering parcels in your area? Join SEQUO’s rider partners and connect local shops with their customers. Tell the team about your availability and learn what you need to get started.', action: 'Become a rider partner', subject: 'Join SEQUO — rider', intro: 'A clear space for the way ahead.', detail: 'Find the missions assigned to you and the steps to confirm, without losing the context of the parcel.',
         features: [ { icon: 'route', title: 'Your missions.', text: 'View assigned missions, collection information and destinations.' }, { icon: 'shield', title: 'Confirmed handovers.', text: 'Record the required steps and proof when collecting and handing over parcels.' }, { icon: 'info', title: 'A useful history.', text: 'Find completed missions and report issues encountered along the way.' } ],
         steps: [ { title: 'Review the mission.', text: 'Find the parcel, its steps and the destination information.' }, { title: 'Confirm collection.', text: 'Follow the mission instructions and provide the confirmations requested.' }, { title: 'Complete the handover.', text: 'Confirm the handover with the required proof, or report an issue that needs attention.' } ],
         screens: [ { id: 'rider-missions', label: 'Missions', caption: 'SEQUO Rider · Missions' }, { id: 'rider-history', label: 'History', caption: 'SEQUO Rider · Completed missions' } ],

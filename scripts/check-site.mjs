@@ -120,6 +120,27 @@ try {
           await evaluate('document.querySelector("dialog .dialog-close").click()', sessionId)
           assert(!(await evaluate('document.querySelector("dialog").open', sessionId)))
         }
+        if (page === 'riders' && width !== 320) {
+          const journeyTop = await evaluate('document.querySelector(".rider-journey").offsetTop', sessionId)
+          await evaluate(`window.scrollTo({ top: ${journeyTop}, behavior: 'instant' })`, sessionId)
+          await pause(100)
+          const start = await evaluate('document.querySelector(".rider-journey .rider-marker").getAttribute("transform")', sessionId)
+          await evaluate(`window.scrollTo({ top: ${journeyTop + 400}, behavior: 'instant' })`, sessionId)
+          await pause(100)
+          const end = await evaluate('document.querySelector(".rider-journey .rider-marker").getAttribute("transform")', sessionId)
+          assert.notEqual(start, end, 'Rider should move with document scrolling')
+          assert(await evaluate('(() => { const r = document.querySelector(".rider-journey-visual").getBoundingClientRect(); return r.top >= 0 && r.top < innerHeight && r.bottom > 0 })()', sessionId), 'Route should stay visible while scrolling')
+          await cdp('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-reduced-motion', value: 'reduce' }] }, sessionId)
+          await pause(100)
+          const still = await evaluate('document.querySelector(".rider-journey .rider-marker").getAttribute("transform")', sessionId)
+          await evaluate(`window.scrollTo({ top: ${journeyTop + 100}, behavior: 'instant' })`, sessionId)
+          await pause(100)
+          assert.equal(await evaluate('document.querySelector(".rider-journey .rider-marker").getAttribute("transform")', sessionId), still, 'Reduced motion should keep the rider still')
+          assert.equal(await evaluate('getComputedStyle(document.querySelector(".rider-signal")).animationName', sessionId), 'none')
+          await cdp('Emulation.setEmulatedMedia', { features: [] }, sessionId)
+          await evaluate("window.scrollTo({ top: 0, behavior: 'instant' })", sessionId)
+          await pause(100)
+        }
         if (page === 'contact') {
           assert(!(await evaluate('document.querySelector("form").checkValidity()', sessionId)))
           assert(await evaluate('document.querySelector(".form-note").textContent.length > 30', sessionId))

@@ -13,3 +13,9 @@ Publish only the reviewed commit to the existing sequo-services Vercel project a
 ## Customer homepage refinement
 
 The owner requested a customer-first homepage. Its main content now covers the customer app, real customer screenshots, shopping steps, customer help and access questions. Merchant/Hub cards and the four-role overview were removed from the homepage. A smaller text invitation after the shopping journey links to the dedicated rider page. Vendor and Hub screenshots remain on the merchant and relay pages, reachable through the partner menu and footer. No new page duplicates were needed. Both languages follow this hierarchy.
+
+## Rider recruitment and scroll route
+
+The rider page now explicitly invites visitors to become SEQUO delivery partners and explains how to contact the team about availability and entry conditions. A native SVG courier on a scooter follows a dotted route from shop to customer as the visitor scrolls the three delivery steps. The map stays visible beside the steps on desktop and above them on mobile. It is an illustration, with no live tracking, location permission, external map service or automatic page scrolling. Reduced-motion preferences keep the courier still and disable its signal pulse. The homepage rider invitation uses the same courier artwork. Real rider screenshots remain in the app section.
+
+Browser checks verify movement with scroll, sticky visibility and reduced-motion behavior in both languages on desktop and phone, alongside the existing responsive suite.
