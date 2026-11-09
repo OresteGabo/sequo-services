@@ -19,14 +19,14 @@ Read [the current content review](docs/CONTENT_REVIEW_2026-11-09.md) and recheck
 
 Reuse the apps' emerald family (`#0B6B46`) and existing SEQUO brand assets. Use warm neutral backgrounds, clear typography, generous but purposeful spacing, restrained borders and consistent icons. Keep each section useful; avoid heavy gradients, floating decorative card piles, fabricated metrics, testimonials and partner logos.
 
-The commerce hero and phone journey are explicitly illustrative. Preserve that disclosure. Asset provenance is in `public/images/PROVENANCE.md`. Do not publish internal test captures, private account/profile information or pickup credentials.
+The commerce hero is explicitly illustrative; preserve its caption. The phone galleries use real app captures, authorized by the owner on 2026-11-09. Curated local synthetic fixture captures and supplied framed Hub images are documented in `docs/SCREENSHOTS.md`; these product assets may be committed. Do not publish private account/profile information, pickup credentials or arbitrary internal QA captures. Hero provenance is in `public/images/PROVENANCE.md`.
 
 Keep the mobile navigation keyboard-accessible, including focus return on Escape. Preserve visible focus, native buttons, truthful pressed states, native FAQ disclosures, reduced-motion support and sufficiently contrasting text. Check small phones as well as desktop/tablet. Keep links and controls meaningful; no fake form success or nonfunctional store badges.
 
 ## Contact, checks and release
 
-`src/content/site.ts` owns the public email. The owner approved `hello@sequoservices.com` on 2026-11-09 and plans to update it manually. All contact CTAs are clearly mail links, not a lead database. This static site makes no authenticated API calls and must not expose internal admin/local-fixture entry points or secrets.
+`src/content/site.ts` owns the public email. The owner approved `hello@sequoservices.com` on 2026-11-09 and plans to update it manually. Contact links and the contact form prepare an email in the visitor’s mail application. They do not send messages or store leads. This static site makes no authenticated API calls and must not expose internal admin/local-fixture entry points or secrets.
 
-Run `npm run build` (type checking plus production build), then check interactions, images, anchors, phone widths, readable content and console errors in the local preview. Record validation limits. Do not commit screenshots, generated builds, dependencies or local configuration.
+Run `npm run build` (type checking, production builds and static prerendering) and `npm run check:site`, then check interactions, images, anchors, phone widths, readable content and console errors in the local preview. Record validation limits. Do not commit QA screenshots, generated builds, dependencies or local configuration; documented curated product captures are intended public assets.
 
 The existing Vercel project `orestegabos-projects/sequo-services` publishes this GitHub repository’s `main` branch. That connection and the live redesign were verified on 2026-11-09 through GitHub commit status and the actual public domain. Preserve this project/domain setup. Publishing changes requires the user’s authorization, a clean/reviewed fast-forward push and verification of the resulting Vercel status plus the live page/assets. A local build or commit alone does not establish publication. See the publication addendum in `docs/PUBLIC_SITE_REDESIGN_2026-11-09.md`.

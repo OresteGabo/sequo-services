@@ -1,653 +1,105 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
-import SequoIcon from "./components/SequoIcon.vue";
-import { publicContact } from "./content/site";
+import { computed, ref } from 'vue'
+import SequoIcon from './components/SequoIcon.vue'
+import AppScreens from './components/AppScreens.vue'
+import { publicContact } from './content/site'
+import { copy, paths, resolvePath, type Page, type ProductPage } from './content/pages'
 
-const menuOpen = ref(false);
-const menuToggle = ref<HTMLButtonElement | null>(null);
-function closeMenuAndFocus() {
-  menuOpen.value = false;
-  menuToggle.value?.focus();
+const props = defineProps<{ initialPath?: string }>()
+const route = resolvePath(props.initialPath ?? (typeof window !== 'undefined' ? window.location.pathname : '/'))
+const locale = route.locale
+const page = route.page
+const text = copy[locale]
+const menuOpen = ref(false)
+const menuToggle = ref<HTMLButtonElement | null>(null)
+const partnerMenu = ref<HTMLDetailsElement | null>(null)
+const products: ProductPage[] = ['app', 'merchants', 'riders', 'relays']
+const partners: ProductPage[] = ['merchants', 'riders', 'relays']
+const product = page in text.products ? text.products[page as ProductPage] : null
+const link = (id: Page) => paths[locale][id]
+const mail = (subject: string) => `mailto:${publicContact.email}?subject=${encodeURIComponent(subject)}`
+function closeNavigation(event?: KeyboardEvent) {
+  if (partnerMenu.value?.open) { partnerMenu.value.open = false; partnerMenu.value.querySelector('summary')?.focus() }
+  if (menuOpen.value) { menuOpen.value = false; menuToggle.value?.focus() }
+  event?.preventDefault()
 }
-const activeStep = ref(0);
-const activeRole = ref(0);
-const steps = [
-  {
-    title: "Vos commerces, à portée de main.",
-    label: "Choisir",
-    copy: "Parcourez les produits des commerçants, composez votre panier et personnalisez les articles qui proposent des options.",
-    icon: "bag",
-  },
-  {
-    title: "Une commande. Des étapes claires.",
-    label: "Suivre",
-    copy: "Retrouvez votre commande et suivez sa préparation, sa prise en charge puis sa remise, depuis le même espace.",
-    icon: "route",
-  },
-  {
-    title: "À domicile ou en point relais.",
-    label: "Recevoir",
-    copy: "Choisissez parmi les destinations proposées pour votre panier. En relais, votre code de retrait vous accompagne jusqu’à la remise du colis.",
-    icon: "pin",
-  },
-];
-const roles = [
-  {
-    name: "Client",
-    app: "SEQUO",
-    icon: "bag",
-    title: "Votre quartier, dans votre poche.",
-    copy: "Les produits de vos commerçants et le suivi de vos achats, réunis dans une seule application.",
-    features: [
-      "Catalogue et panier avec options disponibles",
-      "Négociation sur les produits autorisés",
-      "Suivi des commandes et demandes de retour éligibles",
-    ],
-    action: "Me renseigner sur l’accès",
-    subject: "Découvrir SEQUO — client",
-    screenLabel: "Votre commande",
-    screenTitle: "Gardez le fil.",
-    screenText:
-      "Préparation, livraison ou retrait : retrouvez les étapes de votre commande.",
-    tags: ["Panier", "Commandes", "Retours"],
-  },
-  {
-    name: "Commerçant",
-    app: "SEQUO Vendor",
-    icon: "store",
-    title: "Votre boutique. Votre activité.",
-    copy: "Publiez vos produits et gardez une vue claire sur les commandes à préparer, les retours et les états de règlement.",
-    features: [
-      "Catalogue, photos et options produits",
-      "Acceptation et préparation des commandes",
-      "Ventes, retours et états de règlement",
-    ],
-    action: "Présenter ma boutique",
-    subject: "Rejoindre SEQUO — commerçant",
-    screenLabel: "Votre boutique",
-    screenTitle: "Prêt pour la suite.",
-    screenText:
-      "Recevez les commandes, préparez vos articles et signalez quand le colis est prêt.",
-    tags: ["Catalogue", "Préparation", "Activité"],
-  },
-  {
-    name: "Livreur",
-    app: "SEQUO Rider",
-    icon: "route",
-    title: "Chaque mission, étape par étape.",
-    copy: "Consultez vos missions, prenez en charge les colis et confirmez leur remise avec les justificatifs demandés.",
-    features: [
-      "Missions et détail de la destination",
-      "Prise en charge et remise vérifiée",
-      "Signalement des problèmes et historique",
-    ],
-    action: "Devenir livreur partenaire",
-    subject: "Rejoindre SEQUO — livreur",
-    screenLabel: "Votre mission",
-    screenTitle: "Le bon colis. Au bon endroit.",
-    screenText:
-      "Les informations utiles pour avancer de la collecte à la remise.",
-    tags: ["Missions", "Remise", "Historique"],
-  },
-  {
-    name: "Point relais",
-    app: "SEQUO Hub",
-    icon: "parcel",
-    title: "Un lien de proximité en plus.",
-    copy: "Accueillez les colis éligibles, suivez leur présence au relais et vérifiez chaque retrait avec le client.",
-    features: [
-      "Réception et emplacement des colis",
-      "Retrait avec code et vérification d’identité",
-      "Historique, retards et réception des retours éligibles",
-    ],
-    action: "Proposer un point relais",
-    subject: "Rejoindre SEQUO — point relais",
-    screenLabel: "Votre point relais",
-    screenTitle: "Chaque remise compte.",
-    screenText:
-      "Une réception enregistrée, un retrait vérifié et un historique conservé.",
-    tags: ["Réception", "Retrait", "Historique"],
-  },
-];
-const role = computed(() => roles[activeRole.value]!);
-const contactUrl = (subject: string) =>
-  `mailto:${publicContact.email}?subject=${encodeURIComponent(subject)}`;
-const faqs = [
-  {
-    q: "Comment accéder aux applications ?",
-    a: "Le lancement public est en préparation. Contactez SEQUO pour connaître les possibilités d’accès et les zones disponibles. Les liens officiels de téléchargement seront publiés ici lorsqu’ils seront disponibles.",
-  },
-  {
-    q: "Puis-je faire livrer tous les produits en point relais ?",
-    a: "Non. Le retrait en relais dépend du panier et de la disponibilité du point choisi. Les produits alimentaires, périssables et sensibles sont exclus de ce mode de réception.",
-  },
-  {
-    q: "Comment fonctionne la négociation ?",
-    a: "Certains commerçants autorisent les offres sur leurs produits. Les échanges et le prix accepté sont enregistrés dans l’application. Un prix accepté reste valable 24 heures pour le client et le produit concernés.",
-  },
-  {
-    q: "Puis-je demander un retour ?",
-    a: "Pour une commande et des produits éligibles, une demande peut être déposée dans les 72 heures suivant la livraison. Vous retrouvez ensuite son statut et les instructions dans l’application. Un remboursement dépend de la réception et de la vérification du retour.",
-  },
-  {
-    q: "Les paiements mobiles sont-ils déjà disponibles ?",
-    a: "Les connexions aux opérateurs de paiement sont en préparation. Les paiements, remboursements et versements électroniques ne sont pas encore ouverts au public. Aucune opération réelle n’est proposée par ce site.",
-  },
-  {
-    q: "Y a-t-il déjà des abonnements ou des récompenses de parrainage ?",
-    a: "Ces offres ne sont pas activées. Leurs conditions et leurs tarifs seront communiqués après validation par SEQUO.",
-  },
-];
+const search = ref('')
+const category = ref('')
+const categories = [...new Set(text.help.faqs.map(faq => faq.category))]
+const normalise = (value: string) => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+const filteredFaqs = computed(() => text.help.faqs.filter(faq => (!category.value || faq.category === category.value) && normalise(faq.q + ' ' + faq.a).includes(normalise(search.value.trim()))))
+const name = ref('')
+const topic = ref(text.contact.topics[0]!)
+const message = ref('')
+function prepareEmail() {
+  const body = `${text.contact.draftGreeting}\n\n${message.value.trim()}\n\n${name.value.trim()}`
+  window.location.href = `${mail(`${topic.value} — SEQUO`)}&body=${encodeURIComponent(body)}`
+}
 </script>
 
 <template>
-  <a class="skip-link" href="#contenu">Aller au contenu</a>
-  <header class="site-header">
-    <a
-      class="brand"
-      href="#accueil"
-      aria-label="SEQUO — accueil"
-      @click="menuOpen = false"
-    >
-      <img src="/brand/sequo-logo-light.svg" alt="SEQUO" width="145" height="52" />
-    </a>
-    <button
-      ref="menuToggle"
-      class="menu-toggle"
-      @keydown.esc.prevent="closeMenuAndFocus"
-      type="button"
-      :aria-expanded="menuOpen"
-      aria-controls="navigation"
-      @click="menuOpen = !menuOpen"
-    >
-      <SequoIcon :name="menuOpen ? 'close' : 'menu'" />
-      <span>{{ menuOpen ? "Fermer" : "Menu" }}</span>
-    </button>
-    <nav
-      id="navigation"
-      :class="{ 'is-open': menuOpen }"
-      aria-label="Navigation principale"
-      @keydown.esc.prevent="closeMenuAndFocus"
-    >
-      <a href="#experience" @click="menuOpen = false">L’expérience SEQUO</a>
-      <a href="#espaces" @click="menuOpen = false">À chacun son espace</a>
-      <a href="#questions" @click="menuOpen = false">Vos questions</a>
-      <a class="button button-small" href="#contact" @click="menuOpen = false"
-        >Parlons-en <SequoIcon name="arrow"
-      /></a>
-    </nav>
+  <a class="skip-link" href="#contenu">{{ text.skip }}</a>
+  <header id="top" class="site-header" @keydown.esc="closeNavigation">
+    <div class="header-inner">
+      <a class="brand" :href="link('home')" :aria-label="text.homeLabel"><img src="/brand/sequo-logo-light.svg" alt="SEQUO" width="1622" height="448" /></a>
+      <nav id="navigation" :class="{ 'is-open': menuOpen }" :aria-label="text.mainNav">
+        <a :href="link('app')" :aria-current="page === 'app' ? 'page' : undefined">{{ text.nav.app }}</a>
+        <details ref="partnerMenu" class="partner-menu">
+          <summary :class="{ active: partners.includes(page as ProductPage) }">{{ text.partners }}<SequoIcon name="arrow-down" /></summary>
+          <div class="partner-links"><a v-for="id in partners" :key="id" :href="link(id)" :aria-current="page === id ? 'page' : undefined"><SequoIcon :name="text.products[id].icon" /><span>{{ text.nav[id] }}<small>{{ text.products[id].product }}</small></span><SequoIcon name="arrow" /></a></div>
+        </details>
+        <a :href="link('about')" :aria-current="page === 'about' ? 'page' : undefined">{{ text.nav.about }}</a>
+        <a :href="link('help')" :aria-current="page === 'help' ? 'page' : undefined">{{ text.nav.help }}</a>
+        <a class="button button-small" :href="link('contact')" :aria-current="page === 'contact' ? 'page' : undefined">{{ text.nav.contact }}<SequoIcon name="arrow" /></a>
+      </nav>
+      <div class="header-actions">
+        <div class="language-switch" role="group" :aria-label="text.language"><a :href="paths.fr[page]" lang="fr" hreflang="fr" aria-label="Français" :aria-current="locale === 'fr' ? 'true' : undefined"><span aria-hidden="true">🇫🇷</span><span>FR</span></a><a :href="paths.en[page]" lang="en" hreflang="en" aria-label="English" :aria-current="locale === 'en' ? 'true' : undefined"><span aria-hidden="true">🇬🇧</span><span>EN</span></a></div>
+        <button ref="menuToggle" class="menu-toggle" type="button" :aria-label="menuOpen ? text.close : text.menu" :aria-expanded="menuOpen" aria-controls="navigation" @click="menuOpen = !menuOpen"><SequoIcon :name="menuOpen ? 'close' : 'menu'" /></button>
+      </div>
+    </div>
   </header>
 
-  <main id="contenu">
-    <section id="accueil" class="hero wrap" aria-labelledby="hero-title">
-      <div class="hero-copy">
-        <p class="eyebrow">
-          <span class="status-dot"></span> Le commerce local, mieux connecté
-        </p>
-        <h1 id="hero-title">Tout près.<br />Tout <em>simplement.</em></h1>
-        <p class="hero-lead">
-          Vos commerçants. Vos achats. Votre livraison.<br
-            class="desktop-break"
-          />
-          SEQUO rapproche tout ce qui compte au quotidien.
-        </p>
-        <div class="hero-actions">
-          <a class="button" href="#experience"
-            >Découvrir SEQUO <SequoIcon name="arrow"
-          /></a>
-          <a class="text-link" href="#espaces"
-            >Trouver mon espace <SequoIcon name="arrow-down"
-          /></a>
-        </div>
-        <div class="launch-note">
-          <span class="status-dot"></span>
-          <p>
-            Lancement public en préparation.<br /><a href="#contact"
-              >Échangez avec l’équipe pour en savoir plus.</a
-            >
-          </p>
-        </div>
-      </div>
-      <figure class="hero-visual">
-        <img
-          class="hero-photo"
-          src="/images/commerce-local.webp"
-          alt="Illustration : une commerçante remet un colis à un livreur devant une boutique de quartier."
-          width="960"
-          height="1200"
-          fetchpriority="high"
-        />
-        <div class="handoff-note">
-          <span class="icon-circle"><SequoIcon name="check" /></span>
-          <div>
-            <strong>Du commerce à votre porte.</strong
-            ><span>Et un lien à chaque étape.</span>
-          </div>
-        </div>
-        <figcaption>
-          Une vision du quotidien avec SEQUO · Illustration
-        </figcaption>
-        <span class="visual-spark" aria-hidden="true">✳</span>
-      </figure>
-    </section>
+  <main id="contenu" tabindex="-1">
+    <section v-if="!route.found" class="wrap not-found"><p class="section-label">404</p><h1>{{ text.notFound.title }}</h1><p>{{ text.notFound.text }}</p><a class="button" :href="link('home')">{{ text.notFound.action }}<SequoIcon name="arrow" /></a></section>
 
-    <div class="ecosystem-strip wrap" aria-label="Les acteurs SEQUO">
-      <p>Un même lien.<br /><strong>Quatre façons d’avancer.</strong></p>
-      <span><SequoIcon name="bag" /> Clients</span
-      ><span><SequoIcon name="store" /> Commerçants</span
-      ><span><SequoIcon name="route" /> Livreurs</span
-      ><span><SequoIcon name="parcel" /> Points relais</span>
-    </div>
+    <template v-else-if="page === 'home'">
+      <section class="hero wrap" aria-labelledby="hero-title">
+        <div class="hero-copy"><h1 id="hero-title">{{ text.home.title }}<br /><em>{{ text.home.emphasis }}</em></h1><p class="hero-lead">{{ text.home.lead }}</p><div class="hero-actions"><a class="button" :href="link('app')">{{ text.home.action }}<SequoIcon name="arrow" /></a><a class="text-link" :href="link('merchants')">{{ text.home.secondary }}<SequoIcon name="arrow-down" /></a></div></div>
+        <figure class="hero-visual"><img class="hero-photo" src="/images/commerce-local.webp" :alt="text.home.imageAlt" width="960" height="1200" fetchpriority="high" /><div class="handoff-note"><span class="icon-circle"><SequoIcon name="check" /></span><div><strong>{{ text.home.handoff }}</strong><span>{{ text.home.handoffSmall }}</span></div></div><figcaption>{{ text.home.imageCaption }}</figcaption></figure>
+      </section>
+      <div class="ecosystem-strip wrap"><p>{{ text.home.strip }}<br /><strong>{{ text.home.stripStrong }}</strong></p><a v-for="id in products" :key="id" :href="link(id)"><SequoIcon :name="text.products[id].icon" />{{ text.products[id].name }}<SequoIcon name="arrow" /></a></div>
+      <section class="app-introduction section-space" aria-labelledby="app-title"><div class="wrap split-layout"><div class="section-copy"><p class="section-label">SEQUO</p><h2 id="app-title">{{ text.home.appTitle }}<br /><em>{{ text.home.appEmphasis }}</em></h2><p class="section-intro">{{ text.home.appText }}</p><ul class="feature-checks"><li v-for="item in text.products.app.features" :key="item.title"><SequoIcon name="check" />{{ item.title }}</li></ul><a class="text-link" :href="link('app')">{{ text.home.appAction }}<SequoIcon name="arrow" /></a></div><AppScreens :screens="text.products.app.screens" :locale="locale" compact /></div></section>
+      <section class="section-space wrap" aria-labelledby="roles-title"><div class="section-heading"><h2 id="roles-title">{{ text.home.rolesTitle }}<br /><em>{{ text.home.rolesEmphasis }}</em></h2><p class="section-intro">{{ text.home.rolesText }}</p></div><div class="role-grid"><a v-for="id in partners" :key="id" class="role-card" :href="link(id)"><span class="outline-icon"><SequoIcon :name="text.products[id].icon" /></span><span class="role-product">{{ text.products[id].product }}</span><h3>{{ text.products[id].name }}</h3><p>{{ text.products[id].lead }}</p><span class="text-link">{{ text.common.discover }}<SequoIcon name="arrow" /></span></a></div></section>
+      <section class="journey-section section-space"><div class="wrap"><h2>{{ text.home.howTitle }}</h2><ol class="journey-grid"><li v-for="(step, i) in text.home.steps" :key="step.title"><span class="step-number">0{{ i + 1 }}</span><h3>{{ step.title }}</h3><p>{{ step.text }}</p></li></ol></div></section>
+    </template>
 
-    <section
-      id="experience"
-      class="experience section-space"
-      aria-labelledby="experience-title"
-    >
-      <div class="wrap experience-grid">
-        <div class="experience-copy">
-          <p class="eyebrow">Le quotidien, plus fluide</p>
-          <h2 id="experience-title">
-            De l’envie<br />à la <em>remise en main.</em>
-          </h2>
-          <p class="section-intro">
-            Un parcours simple pour acheter auprès de vos commerçants et garder
-            le fil de votre commande.
-          </p>
-          <div
-            class="step-list"
-            role="group"
-            aria-label="Explorer les étapes d’une commande"
-          >
-            <button
-              v-for="(step, index) in steps"
-              :key="step.label"
-              :aria-pressed="activeStep === index"
-              type="button"
-              :class="{ active: activeStep === index }"
-              @click="activeStep = index"
-            >
-              <span class="step-number">0{{ index + 1 }}</span
-              ><span
-                ><strong>{{ step.title }}</strong
-                ><span v-if="activeStep === index" class="step-description">{{
-                  step.copy
-                }}</span></span
-              ><SequoIcon name="arrow" />
-            </button>
-          </div>
-          <p class="eligibility-note">
-            <SequoIcon name="info" /> Les destinations et options dépendent des
-            produits et des services disponibles.
-          </p>
-        </div>
-        <div class="app-stage">
-          <span class="stage-label"
-            ><span class="status-dot"></span> L’expérience côté client</span
-          >
-          <figure class="phone-preview">
-            <div class="phone-top">
-              <span>9:41</span><span aria-hidden="true">● ● ▰</span>
-            </div>
-            <div class="phone-brand">
-              <img
-                src="/brand/sequo-logo-light.svg"
-                alt="SEQUO"
-                width="100"
-                height="36"
-              /><span class="avatar" aria-hidden="true">A</span>
-            </div>
-            <div class="phone-content" aria-live="polite" aria-atomic="true">
-              <template v-if="activeStep === 0">
-                <p class="phone-eyebrow">À deux pas de vous</p>
-                <h3>Le local a<br />de belles choses.</h3>
-                <div class="sample-search">
-                  <SequoIcon name="search" /> Un produit, une envie…
-                </div>
-                <div class="sample-product">
-                  <div
-                    class="product-drawing basket-drawing"
-                    aria-hidden="true"
-                  >
-                    <SequoIcon name="bag" />
-                  </div>
-                  <div>
-                    <span>La sélection du quartier</span
-                    ><strong>Artisanat & quotidien</strong>
-                  </div>
-                  <SequoIcon name="arrow" />
-                </div>
-                <div class="sample-product">
-                  <div
-                    class="product-drawing fabric-drawing"
-                    aria-hidden="true"
-                  >
-                    <SequoIcon name="store" />
-                  </div>
-                  <div>
-                    <span>Des boutiques à découvrir</span
-                    ><strong>Mode & accessoires</strong>
-                  </div>
-                  <SequoIcon name="arrow" />
-                </div>
-                <div class="phone-tip">
-                  <SequoIcon name="bag" /><span
-                    >Vos choix réunis<br /><strong
-                      >dans un même panier.</strong
-                    ></span
-                  >
-                </div>
-              </template>
-              <template v-else-if="activeStep === 1">
-                <p class="phone-eyebrow">Votre commande</p>
-                <h3>Elle avance.<br />Vous le savez.</h3>
-                <div class="order-banner">
-                  <SequoIcon name="parcel" />
-                  <div>
-                    <span>Statut de la commande</span
-                    ><strong>En préparation</strong>
-                  </div>
-                </div>
-                <ol class="sample-timeline">
-                  <li class="done">
-                    <span></span>
-                    <div>
-                      <strong>Commande enregistrée</strong
-                      ><small>Retrouvez vos articles</small>
-                    </div>
-                  </li>
-                  <li class="current">
-                    <span></span>
-                    <div>
-                      <strong>Préparation en cours</strong
-                      ><small>Le commerçant prépare le colis</small>
-                    </div>
-                  </li>
-                  <li>
-                    <span></span>
-                    <div>
-                      <strong>Prise en charge</strong
-                      ><small>La prochaine étape</small>
-                    </div>
-                  </li>
-                  <li>
-                    <span></span>
-                    <div>
-                      <strong>Remise de votre commande</strong
-                      ><small>À domicile ou en relais</small>
-                    </div>
-                  </li>
-                </ol>
-              </template>
-              <template v-else>
-                <p class="phone-eyebrow">Votre destination</p>
-                <h3>La réception<br />qui vous convient.</h3>
-                <div class="destination-choice">
-                  <span class="icon-circle"><SequoIcon name="home" /></span>
-                  <div>
-                    <strong>À domicile</strong
-                    ><span>À la destination de votre commande</span>
-                  </div>
-                </div>
-                <div class="destination-choice selected">
-                  <span class="icon-circle"><SequoIcon name="pin" /></span>
-                  <div>
-                    <strong>En point relais</strong
-                    ><span>Pour les paniers éligibles</span>
-                  </div>
-                  <SequoIcon name="check" />
-                </div>
-                <div class="phone-tip">
-                  <SequoIcon name="shield" /><span
-                    >Un code personnel<br /><strong
-                      >pour vérifier votre retrait.</strong
-                    ></span
-                  >
-                </div>
-                <p class="phone-small">
-                  Le point relais et son état de disponibilité sont vérifiés
-                  pour votre commande.
-                </p>
-              </template>
-            </div>
-            <div class="phone-bottom" aria-hidden="true">
-              <SequoIcon name="home" /><SequoIcon name="bag" /><SequoIcon
-                name="parcel"
-              /><SequoIcon name="person" />
-            </div>
-            <figcaption>
-              Illustration du parcours · données de démonstration
-            </figcaption>
-          </figure>
-          <span class="stage-decoration" aria-hidden="true">sequo.</span>
-        </div>
-      </div>
-    </section>
+    <template v-else-if="product">
+      <section class="product-hero wrap" aria-labelledby="product-title"><div class="product-copy"><p class="product-label"><SequoIcon :name="product.icon" />{{ product.product }}</p><h1 id="product-title">{{ product.title }}<br /><em>{{ product.emphasis }}</em></h1><p class="hero-lead">{{ product.lead }}</p><div class="hero-actions"><a class="button" :href="mail(product.subject)">{{ product.action }}<SequoIcon name="arrow" /></a><a class="text-link" href="#dans-application">{{ text.common.inside }}<SequoIcon name="arrow-down" /></a></div></div><AppScreens :screens="product.screens" :locale="locale" compact /></section>
+      <section class="section-space wrap"><div class="section-heading"><h2>{{ product.intro }}</h2><p class="section-intro">{{ product.detail }}</p></div><div class="feature-grid"><article v-for="item in product.features" :key="item.title"><span class="outline-icon"><SequoIcon :name="item.icon" /></span><h3>{{ item.title }}</h3><p>{{ item.text }}</p></article></div></section>
+      <section id="dans-application" class="screen-section section-space"><div class="wrap screen-layout"><div class="section-copy"><p class="section-label">{{ product.product }}</p><h2>{{ text.common.inside }}.</h2><ol class="vertical-steps"><li v-for="(step, i) in product.steps" :key="step.title"><span>0{{ i + 1 }}</span><div><h3>{{ step.title }}</h3><p>{{ step.text }}</p></div></li></ol></div><AppScreens :screens="product.screens" :locale="locale" /></div></section>
+      <section class="wrap question-section"><div><SequoIcon name="info" /><h2>{{ product.question }}</h2><p>{{ product.answer }}</p><a class="text-link" :href="link('help')">{{ text.common.viewHelp }}<SequoIcon name="arrow" /></a></div></section>
+      <section class="related-section wrap"><h2>{{ text.common.related }}</h2><div class="related-links"><a v-for="id in products.filter(id => id !== page)" :key="id" :href="link(id)"><SequoIcon :name="text.products[id].icon" /><span>{{ text.products[id].product }}</span><SequoIcon name="arrow" /></a></div></section>
+    </template>
 
-    <section
-      class="receipt-section section-space wrap"
-      aria-labelledby="receipt-title"
-    >
-      <div class="receipt-heading">
-        <p class="eyebrow">À votre rythme</p>
-        <h2 id="receipt-title">
-          Le dernier kilomètre.<br /><em>La même attention.</em>
-        </h2>
-        <p class="section-intro">
-          Un colis ne s’arrête pas à une adresse. Il arrive entre de bonnes
-          mains, avec une remise enregistrée.
-        </p>
-      </div>
-      <div class="receipt-options">
-        <article class="receipt-option">
-          <span class="outline-icon"><SequoIcon name="home" /></span>
-          <div>
-            <h3>On vient à vous.</h3>
-            <p>
-              Une livraison à la destination choisie, un statut à suivre et une
-              remise confirmée.
-            </p>
-          </div>
-          <span class="receipt-index">01</span>
-        </article>
-        <article class="receipt-option">
-          <span class="outline-icon"><SequoIcon name="pin" /></span>
-          <div>
-            <h3>Vous passez au relais.</h3>
-            <p>
-              Un point disponible pour votre panier, un colis réceptionné et
-              votre code pour le retirer.
-            </p>
-            <small>Hors produits alimentaires, périssables et sensibles.</small>
-          </div>
-          <span class="receipt-index">02</span>
-        </article>
-      </div>
-    </section>
+    <template v-else-if="page === 'about'">
+      <section class="page-heading wrap"><p class="section-label">SEQUO</p><h1>{{ text.about.title }}<br /><em>{{ text.about.emphasis }}</em></h1><p class="hero-lead">{{ text.about.lead }}</p></section>
+      <section class="about-story wrap"><figure><img src="/images/commerce-local.webp" :alt="text.home.imageAlt" width="960" height="1200" /><figcaption>{{ text.home.imageCaption }}</figcaption></figure><div><h2>{{ text.about.storyTitle }}</h2><p v-for="paragraph in text.about.story" :key="paragraph">{{ paragraph }}</p><a class="text-link" :href="link('app')">{{ text.home.action }}<SequoIcon name="arrow" /></a></div></section>
+      <section class="section-space wrap"><div class="feature-grid"><article v-for="item in text.about.values" :key="item.title"><span class="outline-icon"><SequoIcon :name="item.icon" /></span><h2>{{ item.title }}</h2><p>{{ item.text }}</p></article></div></section>
+      <section class="place-section"><div class="wrap"><span class="outline-icon"><SequoIcon name="pin" /></span><h2>{{ text.about.placeTitle }}</h2><p>{{ text.about.placeText }}</p><a class="text-link" :href="link('contact')">{{ text.common.contactAction }}<SequoIcon name="arrow" /></a></div></section>
+    </template>
 
-    <section
-      id="espaces"
-      class="roles-section section-space"
-      aria-labelledby="roles-title"
-    >
-      <div class="wrap">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">Un écosystème, des liens humains</p>
-            <h2 id="roles-title">À chacun<br /><em>son espace.</em></h2>
-          </div>
-          <p class="section-intro">
-            Derrière chaque commande, des personnes.<br />Et des outils qui les
-            aident à avancer ensemble.
-          </p>
-        </div>
-        <div
-          class="role-switcher"
-          role="group"
-          aria-label="Choisir un espace SEQUO"
-        >
-          <button
-            v-for="(item, index) in roles"
-            :key="item.name"
-            type="button"
-            :aria-pressed="activeRole === index"
-            @click="activeRole = index"
-          >
-            <SequoIcon :name="item.icon" />{{ item.name }}
-          </button>
-        </div>
-        <div class="role-panel" aria-live="polite" aria-atomic="true">
-          <div class="role-copy">
-            <p class="eyebrow">{{ role.app }}</p>
-            <h3>{{ role.title }}</h3>
-            <p>{{ role.copy }}</p>
-            <ul>
-              <li v-for="feature in role.features" :key="feature">
-                <SequoIcon name="check" />{{ feature }}
-              </li>
-            </ul>
-            <a class="button" :href="contactUrl(role.subject)"
-              >{{ role.action }}<SequoIcon name="arrow"
-            /></a>
-          </div>
-          <div class="role-visual">
-            <span class="role-orbit" aria-hidden="true"></span>
-            <div class="role-app-mark" aria-hidden="true">
-              <SequoIcon :name="role.icon" />
-            </div>
-            <div class="role-message">
-              <span>{{ role.screenLabel }}</span
-              ><strong>{{ role.screenTitle }}</strong>
-              <p>{{ role.screenText }}</p>
-              <div class="role-tags">
-                <span v-for="tag in role.tags" :key="tag">{{ tag }}</span>
-              </div>
-            </div>
-            <small>Un aperçu des usages de {{ role.app }}</small>
-          </div>
-        </div>
-      </div>
-    </section>
+    <template v-else-if="page === 'help'">
+      <section class="page-heading wrap help-heading"><h1>{{ text.help.title }}<br /><em>{{ text.help.emphasis }}</em></h1><p class="hero-lead">{{ text.help.lead }}</p><label class="help-search"><span class="sr-only">{{ text.help.search }}</span><SequoIcon name="search" /><input v-model="search" type="search" :placeholder="text.help.searchPlaceholder" autocomplete="off" /></label></section>
+      <section class="help-layout wrap"><div class="help-categories" role="group" :aria-label="text.help.search"><button type="button" :aria-pressed="!category" @click="category = ''">{{ text.help.all }}</button><button v-for="item in categories" :key="item" type="button" :aria-pressed="category === item" @click="category = item">{{ item }}</button></div><div class="faq-list"><p v-if="!filteredFaqs.length" class="empty-search" role="status">{{ text.help.noResults }}<button type="button" class="text-link" @click="search = ''; category = ''">{{ text.help.reset }}</button></p><details v-for="faq in filteredFaqs" :id="faq.id" :key="faq.id"><summary>{{ faq.q }}<span aria-hidden="true">+</span></summary><p>{{ faq.a }}</p></details><a class="text-link help-contact" :href="link('contact')">{{ text.help.ask }}<SequoIcon name="arrow" /></a></div></section>
+    </template>
 
-    <section
-      id="projet"
-      class="care-section section-space wrap"
-      aria-labelledby="care-title"
-    >
-      <div class="care-title">
-        <p class="eyebrow">Ce qui fait le lien</p>
-        <h2 id="care-title">Moins de flou.<br /><em>Plus de confiance.</em></h2>
-      </div>
-      <div class="care-points">
-        <article>
-          <SequoIcon name="route" />
-          <h3>Les étapes sont visibles.</h3>
-          <p>
-            Commandes, préparations et remises s’inscrivent dans un historique
-            consultable par les personnes concernées.
-          </p>
-        </article>
-        <article>
-          <SequoIcon name="shield" />
-          <h3>Les remises sont vérifiées.</h3>
-          <p>
-            Les codes et confirmations demandés encadrent la remise des
-            commandes et le retrait en relais.
-          </p>
-        </article>
-        <article>
-          <SequoIcon name="return" />
-          <h3>Les retours ont un suivi.</h3>
-          <p>
-            Une demande éligible, des instructions et un statut. La suite du
-            retour reste visible dans votre espace.
-          </p>
-        </article>
-      </div>
-    </section>
+    <template v-else-if="page === 'contact'">
+      <section class="page-heading wrap"><h1>{{ text.contact.title }}<br /><em>{{ text.contact.emphasis }}</em></h1><p class="hero-lead">{{ text.contact.lead }}</p></section>
+      <section class="contact-layout wrap"><aside><span class="outline-icon"><SequoIcon name="person" /></span><h2>{{ text.contact.emailLabel }}</h2><a class="email-address" :href="mail('Bonjour SEQUO')">{{ publicContact.email }}</a><div class="contact-related"><a :href="link('merchants')">{{ text.nav.merchants }}<SequoIcon name="arrow" /></a><a :href="link('riders')">{{ text.nav.riders }}<SequoIcon name="arrow" /></a><a :href="link('relays')">{{ text.nav.relays }}<SequoIcon name="arrow" /></a><a :href="link('help')">{{ text.nav.help }}<SequoIcon name="arrow" /></a></div></aside><form class="contact-form" :action="mail(locale === 'fr' ? 'Bonjour SEQUO' : 'Hello SEQUO')" method="post" enctype="text/plain" @submit.prevent="prepareEmail"><label>{{ text.contact.name }}<input v-model="name" name="name" autocomplete="name" :placeholder="text.contact.namePlaceholder" maxlength="120" required /></label><label>{{ text.contact.topic }}<select v-model="topic" name="topic"><option v-for="item in text.contact.topics" :key="item">{{ item }}</option></select></label><label>{{ text.contact.message }}<textarea v-model="message" name="message" :placeholder="text.contact.messagePlaceholder" rows="6" minlength="10" maxlength="3000" required></textarea></label><button class="button" type="submit">{{ text.contact.action }}<SequoIcon name="arrow" /></button><p class="form-note">{{ text.contact.note }}</p></form></section>
+    </template>
 
-    <section
-      id="questions"
-      class="faq-section section-space"
-      aria-labelledby="faq-title"
-    >
-      <div class="wrap faq-grid">
-        <div>
-          <p class="eyebrow">Avant de se lancer</p>
-          <h2 id="faq-title">On vous<br /><em>répond.</em></h2>
-          <p class="section-intro">
-            Le fonctionnement, les possibilités<br />et ce qui arrive ensuite.
-          </p>
-          <a class="text-link" :href="contactUrl('Une question sur SEQUO')"
-            >Une autre question ? <SequoIcon name="arrow"
-          /></a>
-        </div>
-        <div class="faq-list">
-          <details v-for="faq in faqs" :key="faq.q">
-            <summary>
-              {{ faq.q }}<span class="faq-plus" aria-hidden="true">+</span>
-            </summary>
-            <p>{{ faq.a }}</p>
-          </details>
-        </div>
-      </div>
-    </section>
-
-    <section
-      id="contact"
-      class="contact-section wrap"
-      aria-labelledby="contact-title"
-    >
-      <div class="contact-inner">
-        <div>
-          <p class="eyebrow">Faisons connaissance</p>
-          <h2 id="contact-title">
-            Le prochain lien,<br /><em>c’est peut-être vous.</em>
-          </h2>
-          <p>
-            Une boutique, une envie de livrer, un lieu pour accueillir les colis
-            ? Ou simplement l’envie de découvrir SEQUO ? Parlons-en.
-          </p>
-          <a
-            class="button button-light"
-            :href="contactUrl('Faisons connaissance — SEQUO')"
-            >Écrire à l’équipe <SequoIcon name="arrow" /></a
-          ><a class="contact-email" :href="contactUrl('Bonjour SEQUO')">{{
-            publicContact.email
-          }}</a>
-        </div>
-        <span class="contact-art" aria-hidden="true">s<span>✳</span></span>
-      </div>
-      <div class="availability-note">
-        <SequoIcon name="info" />
-        <p>
-          <strong>Le lancement public se prépare.</strong> Les zones de service
-          et les accès aux applications seront annoncés par SEQUO. Les paiements
-          électroniques et les offres d’abonnement restent en préparation.
-        </p>
-      </div>
-    </section>
+    <section v-if="route.found && page !== 'contact'" class="contact-band wrap"><div><h2>{{ text.common.contactTitle }}<br /><em>{{ text.common.contactEmphasis }}</em></h2><p>{{ text.common.contactText }}</p><a class="button button-light" :href="link('contact')">{{ text.common.contactAction }}<SequoIcon name="arrow" /></a></div><img src="/brand/sequo-symbol-white.svg" alt="" width="464" height="448" aria-hidden="true" /></section>
   </main>
 
-  <footer class="site-footer wrap">
-    <div class="footer-main">
-      <a class="brand" href="#accueil" aria-label="SEQUO — retour à l’accueil"
-        ><img src="/brand/sequo-logo-light.svg" alt="SEQUO" width="145" height="52"
-      /></a>
-      <p>Le commerce local.<br />Les liens en plus.</p>
-      <nav aria-label="Liens de bas de page">
-        <a href="#experience">L’expérience</a><a href="#espaces">Les espaces</a
-        ><a href="#questions">Vos questions</a
-        ><a href="#contact">Nous contacter</a>
-      </nav>
-    </div>
-    <div class="footer-bottom">
-      <p>© {{ new Date().getFullYear() }} SEQUO Services</p>
-      <p>
-        Illustrations de présentation. Disponibilité selon les services ouverts
-        par SEQUO.
-      </p>
-      <a href="#accueil">En haut <SequoIcon name="arrow-up" /></a>
-    </div>
-  </footer>
+  <footer class="site-footer wrap"><div class="footer-main"><div class="footer-brand"><a class="brand" :href="link('home')" :aria-label="text.homeLabel"><img src="/brand/sequo-logo-light.svg" alt="SEQUO" width="1622" height="448" /></a><p>{{ text.common.footerLine }}<br />{{ text.common.footerSub }}</p></div><nav :aria-label="text.footerNav"><a v-for="id in ['app', 'merchants', 'riders', 'relays', 'about', 'help', 'contact'] as Page[]" :key="id" :href="link(id)" :aria-current="page === id ? 'page' : undefined">{{ text.nav[id] }}</a></nav><a class="footer-mail" :href="mail('Bonjour SEQUO')">{{ publicContact.email }}<SequoIcon name="arrow" /></a></div><div class="footer-bottom"><p>© {{ new Date().getFullYear() }} SEQUO Services</p><div class="footer-languages"><a :href="paths.fr[page]" lang="fr" hreflang="fr">Français</a><a :href="paths.en[page]" lang="en" hreflang="en">English</a></div><a href="#top">{{ text.common.top }}<SequoIcon name="arrow-up" /></a></div></footer>
 </template>

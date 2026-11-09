@@ -1,6 +1,8 @@
 import './assets/main.css'
 
-import { createApp } from 'vue'
+import { createApp, createSSRApp } from 'vue'
 import App from './App.vue'
 
-createApp(App).mount('#app')
+// Static production pages hydrate; the development entry renders normally.
+const root = document.getElementById('app')!
+;(root.children.length ? createSSRApp(App) : createApp(App)).mount(root)
