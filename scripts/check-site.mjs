@@ -56,6 +56,10 @@ try {
       assert(html.includes('merchant-checklist') && html.includes('merchant-questions'), 'Missing merchant guidance')
     }
     if (route === paths.fr.riders || route === paths.en.riders) assert(html.includes('rider-scooter-street.webp') && html.includes('rider-journey'), 'Missing rider photo or preserved animated route')
+    if (route === paths.fr.relays || route === paths.en.relays) assert(html.includes('relay-empty') && html.includes('points-disponibles'), 'Missing coming-soon relay empty state')
+    if (route === paths.fr.access || route === paths.en.access || route === paths.fr.contact || route === paths.en.contact) assert(html.includes('https://wa.me/33780434690'), 'Missing approved WhatsApp contact')
+    if (route === paths.fr.app || route === paths.en.app) assert(html.includes('customer-basket.webp') && html.includes('customer-delivery.webp') && html.includes('walkthrough-demo-note'), 'Missing real walkthrough captures/disclosure')
+    if ([paths.fr.privacy, paths.en.privacy, paths.fr.terms, paths.en.terms].includes(route)) assert(html.includes('legal-body') && html.includes('Lomé'), 'Missing website notice')
     assert(!html.includes('<!--app-html-->'), route)
     assert(!html.includes('Illustrations de présentation') && !html.includes('Le commerce local, mieux connecté'), route)
     assert(html.includes('sequo-favicon.svg?v=box-20261109') && !html.includes('vue.svg'), route)
@@ -124,9 +128,9 @@ try {
           assert(await evaluate('document.querySelector(".faq-list details").open', sessionId))
         }
         if (page === 'app' && width === 390) {
-          await evaluate('document.querySelector(".screen-tabs button:last-child").click()', sessionId)
+          await evaluate('document.querySelector(".screen-section .screen-tabs button:last-child").click()', sessionId)
           await pause(30)
-          assert(await evaluate('document.querySelector(".screen-tabs button:last-child").getAttribute("aria-pressed") === "true"', sessionId))
+          assert(await evaluate('document.querySelector(".screen-section .screen-tabs button:last-child").getAttribute("aria-pressed") === "true"', sessionId))
           await evaluate('document.querySelector(".screen-open").click()', sessionId)
           assert(await evaluate('document.querySelector("dialog").open', sessionId))
           await evaluate('document.querySelector("dialog .dialog-close").click()', sessionId)
@@ -160,6 +164,11 @@ try {
           assert.equal(await evaluate('document.querySelectorAll(".merchant-questions details").length', sessionId), 4)
           await evaluate('document.querySelector(".merchant-questions summary").click()', sessionId)
           assert(await evaluate('document.querySelector(".merchant-questions details").open', sessionId))
+        }
+        if (page === 'app') assert.equal(await evaluate('document.querySelectorAll(".walkthrough-grid > li").length', sessionId), 3)
+        if (page === 'privacy' || page === 'terms') {
+          assert(await evaluate('document.querySelectorAll(".legal-toc a").length >= 5', sessionId))
+          assert(await evaluate('[...document.querySelectorAll(".legal-toc a")].every(a => document.getElementById(a.hash.slice(1)))', sessionId), 'Broken notice contents link')
         }
         if (page === 'contact') {
           assert(!(await evaluate('document.querySelector("form").checkValidity()', sessionId)))

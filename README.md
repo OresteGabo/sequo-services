@@ -2,7 +2,7 @@
 
 Public, French-first product website for **https://www.sequoservice.com**. Vue 3, TypeScript and Vite; no new runtime dependency is required for the redesign.
 
-The site explains shopping, merchant preparation, delivery and eligible relay collection. Nine dedicated pages cover the home, application, customer parcel collection, merchants, riders, relay-point partnerships, about, help and contact, in French and English. The language switch preserves the current page. This is a public presentation site, not a customer checkout or staff admin application.
+The site explains shopping, merchant preparation, delivery and eligible relay collection. Twelve dedicated pages cover the home, application, availability/access, customer parcel collection, merchants, riders, relay-point partnerships, about, help, contact, website privacy and website terms, in French and English. The language switch preserves the current page. This is a public presentation site, not a customer checkout or staff admin application.
 
 ## Run and build
 
@@ -16,7 +16,7 @@ npm run preview -- --port 4185
 npm run check:site
 ```
 
-`build` runs type checking, the Vite client/server builds and static prerendering of 18 localized HTML pages, plus a sitemap and 404 page. Vercel clean URLs serve these static pages without a runtime server. The generated static site is in `dist/`. Do not commit generated builds, dependencies or QA screenshots. Curated product screenshots are documented in `docs/SCREENSHOTS.md`.
+`build` runs type checking, the Vite client/server builds and static prerendering of 24 localized HTML pages, plus a sitemap and 404 page. Vercel clean URLs serve these static pages without a runtime server. The generated static site is in `dist/`. Do not commit generated builds, dependencies or QA screenshots. Curated product screenshots are documented in `docs/SCREENSHOTS.md`.
 
 ## Content and assets
 
@@ -24,7 +24,7 @@ npm run check:site
 - [Redesign verification and publication checklist](docs/PUBLIC_SITE_REDESIGN_2026-11-09.md).
 - [AI/developer guidance](AI_CONTEXT.md).
 - [Image and logo provenance](public/images/PROVENANCE.md).
-- Public contact is centralized in `src/content/site.ts`. The owner confirmed `hello@sequoservices.com` on 2026-11-09 and will update it manually if needed. Mail links open the visitor's email application; this website does not send email, register accounts or store waitlist submissions.
+- Public email and the owner-approved WhatsApp number are centralized in `src/content/site.ts`. See [access and website notices](docs/PUBLIC_ACCESS_AND_NOTICES_2026-11-09.md). The owner confirmed `hello@sequoservices.com` on 2026-11-09 and will update it manually if needed. Mail links open the visitor's email application; this website does not send email, register accounts or store waitlist submissions.
 
 The hero is an original, explicitly labelled illustration, not evidence of a real partner. The phone galleries show real app captures: newly captured local synthetic Customer, Vendor and Rider fixtures, plus owner-supplied framed Hub captures. See [capture provenance](docs/SCREENSHOTS.md). Never publish private customer information or pickup credentials.
 

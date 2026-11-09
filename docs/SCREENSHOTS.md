@@ -23,3 +23,13 @@ PNG originals were encoded as WebP at quality 94 without changing screen content
 | `rider-missions.webp` | `5df7af8013a3616d39dc58161b752179adf413823b27c499f418f5ce410e8db3` |
 | `vendor-dashboard.webp` | `0e6e8527f2c3221d95e05704681954dad8f83584ee4dbd16cd7088a11dd083fe` |
 | `vendor-orders.webp` | `fe0adc05cddb89869e563001262736365948f0d85df35d0773f7dd976a5162ba` |
+
+## Customer walkthrough additions — 2026-11-09
+
+`customer-basket.webp` and `customer-delivery.webp` are fresh captures of the installed local fixture customer app, using its normal explicit [TEST] Ama practice account. The existing basket was read unchanged. The delivery radio control was switched to the existing synthetic relay only to demonstrate the UI, then returned to home delivery. No address, quantity, order, payment or production account was created or modified. No checkout was submitted. Captures contain no personal pickup code or private address.
+
+The fake relay is visibly labelled [TEST], local test and no physical locker/delivery inside the actual app. The walkthrough additionally explains that these are fictional points, while the public locations section states no relay is yet available. Both files retain native 1080 × 2400 content, encoded as WebP quality 94/method 6 without semantic editing.
+
+- `customer-basket.webp` SHA-256: `3478d331e13e54d8ff4c19c6afd1560c3f4eb6f15e3d781a431ed5b8c2a297b7`.
+
+- `customer-delivery.webp` SHA-256: `799965b93c72397ca687a68e873cefba3b37b024ecd2350b60902060e97fd738`.

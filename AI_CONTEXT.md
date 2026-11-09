@@ -25,7 +25,7 @@ Keep the mobile navigation keyboard-accessible, including focus return on Escape
 
 ## Contact, checks and release
 
-`src/content/site.ts` owns the public email. The owner approved `hello@sequoservices.com` on 2026-11-09 and plans to update it manually. Contact links and the contact form prepare an email in the visitor’s mail application. They do not send messages or store leads. This static site makes no authenticated API calls and must not expose internal admin/local-fixture entry points or secrets.
+`src/content/site.ts` owns the public email. The owner approved `hello@sequoservices.com` and WhatsApp `+33 7 80 43 46 90` on 2026-11-09 and plans to update contact details later. Relay collection is explicitly not yet available. The supplied publisher name is SEQUO and launch location Lomé; no registered street address or registration number has been provided. Keep website notices scoped to actual site behavior and complete formal service policies when confirmed for launch. Contact links and the contact form prepare an email in the visitor’s mail application. They do not send messages or store leads. This static site makes no authenticated API calls and must not expose internal admin/local-fixture entry points or secrets.
 
 Run `npm run build` (type checking, production builds and static prerendering) and `npm run check:site`, then check interactions, images, anchors, phone widths, readable content and console errors in the local preview. Record validation limits. Do not commit QA screenshots, generated builds, dependencies or local configuration; documented curated product captures are intended public assets.
 

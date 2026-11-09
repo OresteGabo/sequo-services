@@ -1,10 +1,12 @@
+import { experience } from './experience'
+import { legalContent } from './legal'
 export type Locale = 'fr' | 'en'
-export type Page = 'home' | 'app' | 'merchants' | 'riders' | 'relays' | 'hubPartners' | 'about' | 'help' | 'contact'
+export type Page = 'home' | 'app' | 'merchants' | 'riders' | 'relays' | 'hubPartners' | 'about' | 'help' | 'contact' | 'access' | 'privacy' | 'terms'
 export type ProductPage = 'app' | 'merchants' | 'riders' | 'hubPartners'
 
 export const paths: Record<Locale, Record<Page, string>> = {
-  fr: { home: '/', app: '/application', merchants: '/commercants', riders: '/livreurs', relays: '/points-relais', hubPartners: '/devenir-point-relais', about: '/a-propos', help: '/aide', contact: '/contact' },
-  en: { home: '/en', app: '/en/app', merchants: '/en/merchants', riders: '/en/riders', relays: '/en/relay-points', hubPartners: '/en/become-a-relay-point', about: '/en/about', help: '/en/help', contact: '/en/contact' },
+  fr: { home: '/', app: '/application', merchants: '/commercants', riders: '/livreurs', relays: '/points-relais', hubPartners: '/devenir-point-relais', about: '/a-propos', help: '/aide', contact: '/contact', access: '/acces', privacy: '/confidentialite', terms: '/conditions' },
+  en: { home: '/en', app: '/en/app', merchants: '/en/merchants', riders: '/en/riders', relays: '/en/relay-points', hubPartners: '/en/become-a-relay-point', about: '/en/about', help: '/en/help', contact: '/en/contact', access: '/en/access', privacy: '/en/privacy', terms: '/en/terms' },
 }
 export const pageIds = Object.keys(paths.fr) as Page[]
 export const locales: Locale[] = ['fr', 'en']
@@ -41,7 +43,7 @@ type Copy = {
 
 export const copy: Record<Locale, Copy> = {
   fr: {
-    nav: { home: 'Accueil', app: "L’application", merchants: 'Commerçants', riders: 'Livreurs', relays: 'Retirer un colis', hubPartners: 'Devenir point relais', about: 'À propos', help: 'Aide', contact: 'Contact' },
+    nav: { home: 'Accueil', app: "L’application", merchants: 'Commerçants', riders: 'Livreurs', relays: 'Retirer un colis', hubPartners: 'Devenir point relais', about: 'À propos', help: 'Aide', contact: 'Contact', access: 'Disponibilité et accès', privacy: 'Confidentialité', terms: 'Conditions du site' },
     partners: 'Nos partenaires', menu: 'Menu', close: 'Fermer', skip: 'Aller au contenu', mainNav: 'Navigation principale', footerNav: 'Explorer SEQUO',
     language: 'Langue du site', localeName: 'Français', otherLanguage: 'English', homeLabel: 'SEQUO — accueil',
     home: {
@@ -65,7 +67,7 @@ export const copy: Record<Locale, Copy> = {
       ],
     },
     relays: {
-      title: 'Votre colis,', emphasis: 'à retirer en relais.', lead: 'Pour les articles éligibles, choisissez un point relais proposé dans votre commande. Retrouvez les informations de retrait dans SEQUO et récupérez votre colis lorsqu’il est prêt.', action: 'Découvrir l’application client', how: 'Comment retirer mon colis ?',
+      title: 'Votre colis,', emphasis: 'à retirer en relais.', lead: 'Les points relais ne sont pas encore disponibles. À leur ouverture, les articles éligibles pourront être retirés dans un point proposé avec votre commande. Voici comment préparer votre retrait.', action: 'Découvrir l’application client', how: 'Comment retirer mon colis ?',
       intro: 'Un retrait, bien préparé.', detail: 'Le point relais est un lieu où vous récupérez votre commande. Vous utilisez votre application SEQUO habituelle : l’équipe du relais s’occupe de la remise.',
       features: [
         { icon: 'pin', title: 'Un lieu proposé pour votre panier.', text: 'Les points disponibles dépendent des articles de votre commande et des services ouverts. Vérifiez les informations du point avant de le choisir.' },
@@ -184,7 +186,7 @@ export const copy: Record<Locale, Copy> = {
       faqs: [
         { id: 'acces', category: 'L’application', q: 'Comment accéder aux applications ?', a: 'Le lancement public est en préparation. Contactez SEQUO pour connaître les possibilités d’accès et les zones ouvertes. Les liens officiels de téléchargement seront publiés lorsqu’ils seront disponibles.' },
         { id: 'commande', category: 'Les commandes', q: 'Où retrouver ma commande ?', a: 'L’espace Commandes de l’application permet de retrouver les achats et les statuts enregistrés : préparation, prise en charge et remise.' },
-        { id: 'relais', category: 'Les points relais', q: 'Puis-je faire livrer tous les produits en point relais ?', a: 'Non. Le retrait en relais dépend du panier et des points disponibles. Les produits alimentaires, périssables et sensibles sont exclus de ce mode de réception.' },
+        { id: 'relais', category: 'Les points relais', q: 'Puis-je faire livrer tous les produits en point relais ?', a: 'Les points relais ne sont pas encore disponibles. À leur ouverture, le retrait dépendra du panier et des points proposés. Les produits alimentaires, périssables et sensibles sont exclus de ce mode de réception.' },
         { id: 'retrait', category: 'Les points relais', q: 'Que faut-il pour retirer un colis ?', a: 'Munissez-vous du code personnel fourni pour le retrait et de la pièce d’identité demandée. Le point relais vérifie ces éléments avant de confirmer la remise.' },
         { id: 'negociation', category: 'Les commandes', q: 'Comment fonctionne la négociation ?', a: 'Certains commerçants autorisent les offres sur leurs produits. Les échanges et le prix accepté sont enregistrés dans l’application. Un prix accepté reste valable 24 heures pour le client et le produit concernés.' },
         { id: 'retours', category: 'Les commandes', q: 'Puis-je demander un retour ?', a: 'Pour une commande et des produits éligibles, une demande peut être déposée dans les 72 heures suivant la livraison. Retrouvez ensuite son statut et les instructions dans l’application. Un remboursement dépend de la réception et de la vérification du retour.' },
@@ -197,7 +199,7 @@ export const copy: Record<Locale, Copy> = {
     notFound: { title: 'Cette page reste à trouver.', text: 'Le lien a peut-être changé. Retrouvez les espaces SEQUO depuis l’accueil.', action: 'Revenir à l’accueil' },
   },
   en: {
-    nav: { home: 'Home', app: 'The app', merchants: 'Merchants', riders: 'Riders', relays: 'Collect a parcel', hubPartners: 'Become a relay point', about: 'About', help: 'Help', contact: 'Contact' },
+    nav: { home: 'Home', app: 'The app', merchants: 'Merchants', riders: 'Riders', relays: 'Collect a parcel', hubPartners: 'Become a relay point', about: 'About', help: 'Help', contact: 'Contact', access: 'Availability and access', privacy: 'Privacy', terms: 'Website terms' },
     partners: 'Our partners', menu: 'Menu', close: 'Close', skip: 'Skip to content', mainNav: 'Main navigation', footerNav: 'Explore SEQUO',
     language: 'Website language', localeName: 'English', otherLanguage: 'Français', homeLabel: 'SEQUO — home',
     home: {
@@ -208,7 +210,7 @@ export const copy: Record<Locale, Copy> = {
       steps: [ { title: 'You choose.', text: 'Products and available options from merchants, brought together in your basket.' }, { title: 'The order moves forward.', text: 'The merchant prepares. The rider collects. You find the recorded steps in the app.' }, { title: 'You receive.', text: 'At your chosen address, or at a relay point offered for the items in your order.' } ],
     },
     relays: {
-      title: 'Your parcel,', emphasis: 'ready for collection.', lead: 'For eligible items, choose a relay point offered with your order. Find collection details in SEQUO and pick up your parcel when it is ready.', action: 'Explore the customer app', how: 'How do I collect my parcel?',
+      title: 'Your parcel,', emphasis: 'ready for collection.', lead: 'Relay points are not available yet. When they open, eligible items can be collected at a point offered with your order. Here is how to prepare for collection.', action: 'Explore the customer app', how: 'How do I collect my parcel?',
       intro: 'Arrive ready to collect.', detail: 'A relay point is a place where you collect your order. Use your usual SEQUO customer app: the relay team takes care of the handover.',
       features: [
         { icon: 'pin', title: 'A location offered for your basket.', text: 'Available points depend on your order’s items and the services currently open. Check the location details before choosing it.' },
@@ -260,7 +262,7 @@ export const copy: Record<Locale, Copy> = {
       faqs: [
         { id: 'acces', category: 'The app', q: 'How can I access the apps?', a: 'The public launch is being prepared. Contact SEQUO to ask about access and open service areas. Official download links will be published when available.' },
         { id: 'commande', category: 'Orders', q: 'Where can I find my order?', a: 'The Orders workspace in the app shows purchases and their recorded statuses, including preparation, collection and handover.' },
-        { id: 'relais', category: 'Relay points', q: 'Can every product be delivered to a relay point?', a: 'No. Relay collection depends on the basket and available points. Food, perishable and sensitive goods are excluded from this collection method.' },
+        { id: 'relais', category: 'Relay points', q: 'Can every product be delivered to a relay point?', a: 'Relay points are not available yet. When they open, collection will depend on the basket and the points offered. Food, perishable and sensitive goods are excluded from this collection method.' },
         { id: 'retrait', category: 'Relay points', q: 'What do I need to collect a parcel?', a: 'Bring the personal collection code and the identity document requested. The relay point checks these before confirming the handover.' },
         { id: 'negociation', category: 'Orders', q: 'How does bargaining work?', a: 'Some merchants allow offers on their products. Exchanges and the accepted price are recorded in the app. An accepted price remains valid for 24 hours for the customer and product concerned.' },
         { id: 'retours', category: 'Orders', q: 'Can I request a return?', a: 'For eligible orders and products, a request can be submitted within 72 hours after delivery. Find its status and instructions in the app. A refund depends on receipt and inspection of the return.' },
@@ -276,6 +278,8 @@ export const copy: Record<Locale, Copy> = {
 
 export function pageMeta(locale: Locale, page: Page) {
   const text = copy[locale]
+  if (page === 'privacy' || page === 'terms') return { title: `${legalContent[locale][page].title} — SEQUO`, description: legalContent[locale][page].lead }
+  if (page === 'access') return { title: `${text.nav.access} — SEQUO`, description: experience[locale].lead }
   if (page === 'home') return { title: locale === 'fr' ? 'SEQUO — Vos commerces, vos achats, votre livraison' : 'SEQUO — Your shops, your purchases, your delivery', description: text.home.lead }
   if (page in text.products) {
     const product = text.products[page as ProductPage]
