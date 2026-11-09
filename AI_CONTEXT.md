@@ -1,194 +1,32 @@
-# Sequo Services Website AI Context
+# SEQUO public website — implementation guidance
 
-This file is for AI assistants and developers building `sequoservices.com`, the public website for Sequo.
+This repository contains the existing public website at **https://www.sequoservice.com**. Keep the Vue 3 / Vite / TypeScript implementation and the existing external hosting setup. The site is French-first and nontechnical. Explain what SEQUO does in language useful to customers, merchants, riders and relay partners.
 
-## Project Purpose
+## Verify claims against the product
 
-`sequoservices.com` is the public, non-technical website for Sequo. It should help someone who has just discovered Sequo understand what the app does, why it matters, who it serves, and why the company is credible.
+Read [the current content review](docs/CONTENT_REVIEW_2026-11-09.md) and recheck the relevant app/API entry points when behavior changes. Historical planning documents are not proof of runtime behavior or public service availability.
 
-The site should also work as an investor-facing product narrative. It must feel professional, trustworthy, modern, and operationally serious, while staying clear enough for ordinary customers, merchants, riders, relay partners, and local business owners.
+- Implemented journeys include merchant catalog publication, a customer basket/quote, scoped preparation and delivery statuses, eligible relay collection with personal codes, bargaining on allowed products, and eligible return requests/statuses.
+- Customer reception choices currently exposed are home and eligible available relay collection. Do not promise four universal delivery modes, connected locker hardware, automatic optimal routing, full-city coverage or fixed delivery times.
+- Native app code/local builds do not establish a public App Store/Play Store listing. Publish real approved store destinations only when confirmed. An email link is not a download, registration or waitlist submission.
+- Yas/Moov provider operations remain unconnected. Do not market live collections, refunds or electronic payouts. Ledger/status tracking and refund instructions do not mean that funds were transferred.
+- Subscription/referral commercial values are unapproved and production benefits remain inactive. Do not promise prices, percentage savings, rewards or cashback.
+- Return requests have a 72-hour eligibility window after delivery; this is not a relay-storage deadline or a guarantee of reimbursement. Relay eligibility excludes food, perishables and sensitive goods. That exclusion is not a blanket rule for every return.
+- Hub live camera scanning is unavailable. Use truthful personal-code/manual validation wording. Do not turn a decorative pattern into an advertised QR/download mechanism.
+- No actual public testable delivery, service launch or full production coverage is established by the source review. Keep availability explicit until the owner confirms it.
 
-Do not write like an API manual. Do not expose backend implementation details unless they help explain trust, reliability, safety, or scale in plain language.
+## Design and interactions
 
-## Product Summary
+Reuse the apps' emerald family (`#0B6B46`) and existing SEQUO brand assets. Use warm neutral backgrounds, clear typography, generous but purposeful spacing, restrained borders and consistent icons. Keep each section useful; avoid heavy gradients, floating decorative card piles, fabricated metrics, testimonials and partner logos.
 
-Sequo is a local commerce and logistics platform. It connects customers, merchants, riders, relay points, and Sequo operations into one trusted delivery and commerce system.
+The commerce hero and phone journey are explicitly illustrative. Preserve that disclosure. Asset provenance is in `public/images/PROVENANCE.md`. Do not publish internal test captures, private account/profile information or pickup credentials.
 
-In plain language, Sequo lets people:
+Keep the mobile navigation keyboard-accessible, including focus return on Escape. Preserve visible focus, native buttons, truthful pressed states, native FAQ disclosures, reduced-motion support and sufficiently contrasting text. Check small phones as well as desktop/tablet. Keep links and controls meaningful; no fake form success or nonfunctional store badges.
 
-- Discover and buy products from local merchants.
-- Pay digitally through supported mobile wallet providers.
-- Receive orders through fast delivery, grouped delivery, pickup, or relay-point collection.
-- Negotiate prices with merchants when bargaining is enabled.
-- Buy from cooperative markets where multiple sellers can be grouped into one storefront.
-- Return eligible items through relay drop-off within the return window.
-- Receive notifications and real-time order updates.
+## Contact, checks and release
 
-Sequo helps merchants:
+`src/content/site.ts` owns the public email. The owner approved `hello@sequoservices.com` on 2026-11-09 and plans to update it manually. All contact CTAs are clearly mail links, not a lead database. This static site makes no authenticated API calls and must not expose internal admin/local-fixture entry points or secrets.
 
-- Sell online without building their own ecommerce infrastructure.
-- Manage orders, preparation, packing, and handoff.
-- Use live product evidence where needed to build trust.
-- Participate in cooperative markets.
-- Receive payouts after commission, refunds, and settlement rules are applied.
+Run `npm run build` (type checking plus production build), then check interactions, images, anchors, phone widths, readable content and console errors in the local preview. Record validation limits. Do not commit screenshots, generated builds, dependencies or local configuration.
 
-Sequo helps riders:
-
-- Receive assigned missions.
-- Pick up and deliver packages with proof and PIN-based delivery flows.
-- Deposit parcels at relay points when the customer chooses relay delivery.
-- Report problems safely when pickup, routing, or delivery cannot continue normally.
-
-Sequo helps relay partners and hubs:
-
-- Receive and store parcels.
-- Validate pickup codes.
-- Release parcels to the right customer or Sequo agent.
-- Handle returns and delayed parcel workflows.
-
-## Business Rules To Reflect Publicly
-
-Use these rules only when useful for product copy. Keep them human-friendly.
-
-- Sequo is zero-cash by default.
-- Supported wallet providers in the backend are Yas Togo and Moov Africa.
-- Delivery pricing starts with a minimum fee for nearby trips and scales with distance.
-- Sequo supports monthly subscription tiers and loyalty discounts.
-- Merchant commission defaults to 15%, with configurable merchant rates from 5% to 15%.
-- Returns have a 72-hour window for eligible goods.
-- Relay points can be used for parcel pickup, storage, and return intake.
-- Cooperative markets can group independent sellers into one customer-facing market experience.
-- Accepted bargaining prices can be locked for a limited time.
-- Payouts, refunds, commissions, and shortfalls are tracked server-side for financial accountability.
-
-## Suggested Site Structure
-
-Build the first version as a polished single-page site with enough sections to later become multiple pages.
-
-Recommended pages or sections:
-
-- Hero: Sequo as a trusted local commerce and delivery platform.
-- App Preview: screenshots or realistic product mockups for customer, merchant, rider, and hub experiences.
-- How It Works: shop, pay, prepare, deliver or collect, track, return if needed.
-- For Customers: digital payment, local merchants, delivery choices, pickup/relay options, notifications.
-- For Merchants: storefront, order management, bargaining, cooperative markets, payout clarity.
-- For Riders: assigned missions, proof-based delivery, route and problem flows.
-- For Relay Partners: pickup codes, parcel custody, return drop-off, locker/availability management.
-- Trust And Safety: authentication, permissions, PINs, audit trails, no cash handling, wallet validation.
-- Investor Story: market opportunity, local commerce infrastructure, revenue model, operational leverage.
-- FAQ: simple answers for customers, merchants, riders, relay partners, and investors.
-- Contact/Waitlist: collect leads from customers, merchants, riders, relay partners, investors.
-
-## Tone And Messaging
-
-Use confident, simple language.
-
-Good:
-
-- "Sequo helps local commerce move from seller to customer with payment, delivery, relay pickup, and returns in one flow."
-- "Customers pay digitally, merchants prepare orders, riders complete verified deliveries, and relay points keep parcels moving."
-- "Built for local markets where trust, timing, and accountability matter."
-
-Avoid:
-
-- Technical backend jargon.
-- Overpromising national/global scale before the product proves it.
-- Saying "blockchain", "AI-powered", or "autonomous" unless a real feature exists.
-- Mentioning private admin endpoints, internal role names, or implementation internals.
-
-## Visual Direction
-
-The design should feel premium, operational, African-local-commerce aware, and trustworthy.
-
-Recommended visual qualities:
-
-- Clean responsive layout.
-- Strong typography.
-- Real app screenshots when available.
-- Product UI mockups if screenshots are not ready.
-- Clear section rhythm.
-- Confident but restrained color palette.
-- Avoid generic stock-photo business imagery.
-- Avoid heavy gradients, decorative blobs, and vague tech imagery.
-
-The first viewport should immediately communicate:
-
-- The name Sequo.
-- What it does.
-- Who it helps.
-- A clear call to action.
-
-Suggested CTAs:
-
-- "Join the waitlist"
-- "Partner with Sequo"
-- "Talk to the team"
-- "Explore how it works"
-
-## Current Frontend Stack
-
-This project is currently a fresh Vue 3 + Vite + TypeScript app.
-
-Current package hints:
-
-- Vue `^3.5.42`
-- Vite `^8.2.2`
-- TypeScript `~6.0.0`
-- `vue-tsc` for type checking
-
-Recommended additions when building:
-
-- Vue Router for multi-page navigation if needed.
-- Tailwind CSS for styling.
-- Pinia only if state becomes necessary.
-- A forms solution or simple validated lead form.
-- A lightweight animation library only if it improves clarity.
-
-## Relationship To Backend
-
-The public site should not depend heavily on live backend data for the first version.
-
-Possible API integrations later:
-
-- Lead capture.
-- Waitlist.
-- Merchant/rider/relay partner applications.
-- Public status or service availability.
-- Help/contact forms.
-
-Use `https://api.sequoservices.com` as the production API origin when API integration exists. During local development, use an environment variable such as `VITE_SEQUO_API_BASE_URL`.
-
-The backend currently exposes implemented routes under `/api`, not `/api/v1`.
-
-## Source Backend Context
-
-This context is derived from the Sequo API repository:
-
-`/Users/muhirwagabooreste/AndroidStudioProjects/SequoService/sequo-api`
-
-Important backend documents:
-
-- `README.md`
-- `ARCHITECTURE.md`
-- `MOBILE_API_GUIDE.md`
-- `API_SPEC.md`
-- `SECURITY.md`
-- `PRICING_ENGINE.md`
-- `COMMISSION_MODEL.md`
-- `SETTLEMENTS_AND_RETURNS.md`
-- `NOTIFICATION_SYSTEM.md`
-- `WEBSOCKET_ARCHITECTURE.md`
-
-## Build Priorities For AI Assistants
-
-When asked to build this site:
-
-1. Replace the default Vite starter UI completely.
-2. Create a polished responsive public website, not a developer dashboard.
-3. Keep copy non-technical and benefit-focused.
-4. Use real Sequo domain concepts from this file.
-5. Include sections for customers, merchants, riders, relay partners, and investors.
-6. Make the design credible enough for ads and investor review.
-7. Keep forms safe: no real secrets, no fake payment collection, no private admin actions.
-8. Run `npm run build` and `npm run type-check` before finishing when dependencies are available.
-
+No tracked deployment configuration proves the live host or an automatic publication trigger. Do not assume a local build or Git commit has changed the public domain. Verify the actual destination before publishing, and verify the deployed page afterwards.
